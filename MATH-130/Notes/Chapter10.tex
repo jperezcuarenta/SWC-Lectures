@@ -4,19 +4,14 @@
 \setbeamertemplate{caption}[numbered]
 \usepackage{caption}
 \usepackage{float}
-\usepackage{wasysym}
 \usepackage{hyperref}
-\usepackage{movie15}
-%\usepackage[margin=1in]{geometry}
 \usepackage{multirow}
 \setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
-\usepackage{dirtytalk}
-\usepackage{siunitx}
 \usepackage{multicol}
 \usepackage{listings}
 \usepackage{color}
 \usepackage{fancyvrb}
-\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{booktabs}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -39,7 +34,6 @@
   fancyvrb=true,
 }
 
-% The following code is to pause within the align environment 
 \makeatletter
 \let\save@measuring@true\measuring@true
 \def\measuring@true{%
@@ -52,52 +46,29 @@
 
 \mode<presentation> {
     \usetheme{Warsaw}
-    % \setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
-    \setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
-    % \setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line    
-    % \addtobeamertemplate{navigation symbols}{}{%
-    %     \usebeamerfont{footline}%
-    %     \usebeamercolor[fg]{footline}%
-    %     \hspace{1em}%
-    %     \insertframenumber/\inserttotalframenumber
-        % }
+    \setbeamertemplate{footline}[page number]
     }
     
-% macro for color
 \definecolor{violet}{rgb}{0.54, 0.17, 0.89}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 \newcommand{\violet}[1]{\textcolor{violet}{#1}}
 \newcommand{\green}[1]{\textcolor{green}{#1}}
 \newcommand{\sol}{\textbf{Solution}: \pause \newline}
 
-%----------------------------------------------------------------------------------------
-%	TITLE PAGE
-%----------------------------------------------------------------------------------------
-
 \title[Chapter 10 Notes]{Math 130: Introduction to Programming \\ Chapter 10: Inheritance \\ Lecture Notes}
-
 \author{Jesús R. Pérez Cuarenta \\
 \href{mailto:jperezcuarenta@swccd.edu}{jperezcuarenta@swccd.edu}
 }
-
-\date{} % Date, can be changed to a custom date
+\date{}
 
 \begin{document}
-% 
-% The Splash Slide(s) are not part of any section
-% 
-% \section{}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
 \begin{frame}
   \maketitle
 \end{frame}
 
 \begin{frame}
 \frametitle{Overview}
-    % \begin{multicols}{2}
     \tableofcontents
-    % \end{multicols}
 \end{frame}
 
 \section{Inheritance and Superclass Attributes}
@@ -313,7 +284,6 @@ public final void message()
     For example, the compiler will generate an error if a subclass attempts to override the \texttt{message} method.
 \end{frame}
 
-%  10.4 Protected Members
 \section{Protected Members and Chains of Inheritance}
 \subsection{Protected Members}
 \begin{frame}{Protected Members}
@@ -355,7 +325,6 @@ public class Circle {
 Note: If a subclass is in a different package, members with package access cannot be accessed.
 \end{frame}
 
-% Section 10.5 - Chains of Inheritance
 \subsection{Chains of Inheritance}
 \begin{frame}{Chains of Inheritance}
     It is possible to establish a chain of inheritance.
@@ -463,7 +432,6 @@ class ChainInheritanceDemo {
     \end{lstlisting}
 \end{frame}
 
-% 10.6 - The _Object_ Class
 \section{\texttt{Object} Class and Polymorphism}
 \subsection{The \texttt{Object} Class}
 \begin{frame}[fragile]{The \texttt{Object} Class}
@@ -507,7 +475,6 @@ class GenericClass {
     \end{lstlisting}
 \end{frame}
 
-% 10.7 - Polymorphism
 \subsection{Polymorphism}
 \begin{frame}[fragile]{Polymorphism}
     A superclass reference variable can reference objects of a subclass. \\ \vspace{1em}
@@ -598,7 +565,6 @@ y = exam instanceof GradedActivity;     // true
     \end{lstlisting}
 \end{frame}
 
-% 10.8 Abstract Classes and Abstract Methods
 \section{Abstract Classes, Abstract Methods and Interfaces}
 \subsection{Abstract Classes and Methods}
 \begin{frame}[fragile]{Abstract Classes and Abstract Methods}
@@ -655,7 +621,6 @@ abstract class Student {
     \end{itemize}
 \end{frame}
 
-% Section 10.9 - Interfaces
 \subsection{Interfaces}
 \begin{frame}[fragile]{Interfaces}
     An interface specifies behavior for a class. \\ \vspace{1em}

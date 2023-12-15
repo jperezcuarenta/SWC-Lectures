@@ -1,2 +1,11 @@
 
 *.png
+*.log
+*.aux
+*.nav
+*.out
+*.pdf
+*.snm
+*.gz
+*.toc
+*.vrb

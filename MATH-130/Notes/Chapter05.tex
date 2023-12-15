@@ -4,19 +4,14 @@
 \setbeamertemplate{caption}[numbered]
 \usepackage{caption}
 \usepackage{float}
-\usepackage{wasysym}
 \usepackage{hyperref}
-\usepackage{movie15}
-%\usepackage[margin=1in]{geometry}
 \usepackage{multirow}
 \setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
-\usepackage{dirtytalk}
-\usepackage{siunitx}
 \usepackage{multicol}
 \usepackage{listings}
 \usepackage{color}
 \usepackage{fancyvrb}
-\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{booktabs}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -39,7 +34,6 @@
   fancyvrb=true,
 }
 
-% The following code is to pause within the align environment 
 \makeatletter
 \let\save@measuring@true\measuring@true
 \def\measuring@true{%
@@ -52,52 +46,29 @@
 
 \mode<presentation> {
     \usetheme{Warsaw}
-    % \setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
-    \setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
-    % \setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line    
-    % \addtobeamertemplate{navigation symbols}{}{%
-    %     \usebeamerfont{footline}%
-    %     \usebeamercolor[fg]{footline}%
-    %     \hspace{1em}%
-    %     \insertframenumber/\inserttotalframenumber
-        % }
+    \setbeamertemplate{footline}[page number]
     }
     
-% macro for color
 \definecolor{violet}{rgb}{0.54, 0.17, 0.89}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 \newcommand{\violet}[1]{\textcolor{violet}{#1}}
 \newcommand{\green}[1]{\textcolor{green}{#1}}
 \newcommand{\sol}{\textbf{Solution}: \pause \newline}
 
-%----------------------------------------------------------------------------------------
-%	TITLE PAGE
-%----------------------------------------------------------------------------------------
-
 \title[Chapter 05 Notes]{Math 130: Introduction to Programming \\ Chapter 05: Methods \\ Lecture Notes}
-
 \author{Jesús R. Pérez Cuarenta \\
 \href{mailto:jperezcuarenta@swccd.edu}{jperezcuarenta@swccd.edu}
 }
-
-\date{} % Date, can be changed to a custom date
+\date{}
 
 \begin{document}
-% 
-% The Splash Slide(s) are not part of any section
-% 
-% \section{}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
 \begin{frame}
   \maketitle
 \end{frame}
 
 \begin{frame}
 \frametitle{Overview}
-    % \begin{multicols}{2}
     \tableofcontents
-    % \end{multicols}
 \end{frame}
 
 \section{Introduction to Methods}
@@ -395,12 +366,6 @@ public class ReturnString {
 \begin{frame}{Problem Solving with Methods}
 See lecture video for a breakdown of the SalesReport.java file.
 \end{frame}
-
-
-% \subsection{Increment and Decrement Operators}
-% \begin{frame}{Increment and Decrement Operators}
-%     Before getting into loops, we'll briefly cover the \violet{increment (++)} and \violet{decrement (--)} operators. These operators can increase and decrease the value of a variable by one. Both update the value of the operand to its new value. They have two forms: prefix and postfix.
-% \end{frame}
 
 \end{document}
 
