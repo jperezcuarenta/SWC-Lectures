@@ -9,3 +9,7 @@
 *.gz
 *.toc
 *.vrb
+*.fdb_latexmk
+*.fls
+MATH-130/.vscode/settings.json
+*.jpg
