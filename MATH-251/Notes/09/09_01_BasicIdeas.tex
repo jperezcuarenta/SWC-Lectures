@@ -1,0 +1,153 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Differential Equations: Basic Ideas}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+\AtBeginEnvironment{proof}{\color{white}}
+
+%% 
+% https://www.emathhelp.net/en/calculators/algebra-2/partial-fraction-decomposition-calculator/
+
+\begin{document}
+
+\encabezado
+
+\section*{Differential Equations: Basic Ideas}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Recognize differential equations and verify solutions.
+        \item Solve first-order differential equations (general and particular solutions).
+    \end{itemize}
+\end{mdframed}
+
+A differential equation involves an unknown function $y$ and its derivatives. The unknown in a differential equation is not a number (as in algebraic equation), but rather a \textit{function}.
+\begin{itemize}
+    \item Examples of algebraic equations
+    \begin{align*}
+        & x^2 + x + 1 = \mathrm{e}^{x}, \\
+        & \sin(x) = x + 1, \\ 
+        & \ln(x) = \mathrm{e}^{(x)} ~ .
+    \end{align*}
+    \item Examples of differential equations
+    \begin{align*}
+        & \frac{dy}{dx} + 4y = \cos(x), \\
+        & \frac{d^2y}{dx^2} + 16y = 0, \\
+        & y'(t) = 0.1y(100 - y) ~ .
+    \end{align*}
+\end{itemize}
+    Consider the differential equation
+    $$
+        y' = y ~ .
+    $$
+    The solution is a function that produces itself upon differentiation. One example being the exponential function, $\mathrm{e}^{(x)}$ (up to a constant). Can you come up with another example? In order to omit trivial solutions, we require an initial condition.
+
+    Let's look at another case
+    $$
+        y' = 2x
+    $$
+    where solutions (which we call \textbf{general solutions}) are of the form 
+    $$
+        y = x^{2} + C ~ .
+    $$
+    On the other hand, if we provide an initial condition, say $(x_0, y_0) = (0, 1)$, it follows that
+    $$
+        1 = 0^2 + C \implies C = 1
+    $$
+    so that
+    $$
+        y = x^{2} + 1 
+    $$
+    is then a \textbf{particular solution}.
+
+\begin{ejer}
+    Show by substitution that the function
+    $$
+        y(t) = C \mathrm{e}^{2.5t}
+    $$
+    is a solution of the differential equation
+    $$
+        y'(t) = 2.5 y(t),
+    $$
+    where $C$ is an arbitrary constant.
+\end{ejer}
+\begin{proof}[Solution]
+    We differentiate $y(t)$,
+    $$
+    y'(t) = \frac{d}{dt} C \mathrm{e}^{2.5t} = C \cdot 2.5 \mathrm{e}^{2.5t} = 2.5 \cdot C \mathrm{e}^{2.5t} = 2.5y(t)
+    $$
+    and we are done.
+\end{proof}
+
+\begin{ejer}
+    Show by substitution that the function
+    $$
+        y(t) = 3.2 \mathrm{e}^{2.5t}
+    $$
+    satisfies the initial value problem
+    \begin{align*}
+        y'(t) & = 2.5 y(t), \\
+        y(0) & = 3.2 ~ .
+    \end{align*}
+\end{ejer}
+\begin{proof}[Solution]
+    First we evaluate $y(t)$ at $t=0$ and obtain
+    \begin{align*}
+        y(0) = 3.2 \mathrm{e}^{2.5 (0)} = 3.2
+    \end{align*}
+    which implies the initial value is satisfied. Now we differentiate and get
+    \begin{align*}
+        y'(t) & = \frac{d}{dt} 3.2 \mathrm{e}^{2.5t} \\
+        & = 3.2 \cdot 2.5\mathrm{e}^{2.5t} \\
+        & = 2.5 \cdot 3.2 \mathrm{e}^{2.5t} \\
+        & = 2.5 y(t) .
+    \end{align*}
+    Therefore, $y(t) = 3.2\mathrm{e}^{2.5t}$ is a particular solution.
+\end{proof}
+
+\begin{ejer}
+    Find the general solution of the following differential equation
+        $$
+            y'(t) = 5\cos(t) + 6 \sin(3t) ~ .
+        $$
+\end{ejer}
+\begin{proof}[Solution]
+    We integrate both sides of the differential equation with respect to $t$,
+    \begin{align*}
+        \int y'(t) ~ dt & = \int 5\cos(t) + 6 \sin(3t) ~ dt \\
+        \implies \int dy & = \int 5\cos(t) + 6 \sin(3t) ~ dt \\
+        \implies y & = 5\sin(t) - 2\cos(3t) + C
+    \end{align*}
+\end{proof}
+
+
+\end{document}

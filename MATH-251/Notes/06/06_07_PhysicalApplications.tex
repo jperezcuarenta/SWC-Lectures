@@ -1,0 +1,90 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+% \AtBeginEnvironment{proof}{\color{white}}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Physical Applications}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+\begin{document}
+
+\encabezado
+
+\section*{Physical Applications}
+We conclude the sixth chapter with problems from physics and engineering. The physical themes in these problems are mass, work, and force.
+\begin{defi}[\textbf{Mass of a One-Dimensional Object}]
+    Suppose a thin bar or wire is represented by the interval $a \leq x \leq b$ with a density function $\rho$ (with units of mass per length). The \textbf{mass} of the object is
+    $$
+        m = \int_{a}^{b} \rho(x) ~ dx.
+    $$
+\end{defi}
+
+\begin{defi}[\textbf{Work}]
+    The work done by a variable force $F$ moving an object along a line from $x = a$ to $x = b$ in the direction of the force is
+    $$
+        W = \int_{a}^{b} F(x) ~ dx.
+    $$
+\end{defi}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ejer}
+    A thin, two-meter bar, represented by the interval $0 \leq x \leq 2$, is made of an alloy whose density in units of kg/m is given by $\rho(x) = 1 + x^2$. What is the mass of the bar?
+\end{ejer}
+\begin{proof}[Solution]
+    The mass of the bar in kilograms is
+    \begin{align*}
+        m & = \int_{a}^{b} \rho(x) ~ dx \\
+        & = \int_{0}^{2} (1 + x^{2}) ~ dx \\
+        & = \left. \left( x + \frac{1}{3} x^{3} \right) \right\rvert_{0}^{2} \\
+        & = \frac{14}{3}.
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Suppose a force of $10$ N is required to stretch a spring 0.1 m from its equilibrium position and hold it in that position. \textbf{Hint}: Hooke's law states that $F(x) = kx$.
+    \begin{enumerate}
+        \item Assuming the spring obeys Hooke's law, find the spring constant $k$.
+        \item How much work is needed to \textit{compress} the spring 0.5 m from its equilibrium position?
+        \item How much work is needed to \textit{stretch} the spring 0.25 m from its equilibrium position?
+    \end{enumerate}
+\end{ejer}
+\begin{proof}[Solution]
+    \begin{enumerate}
+        \item Since $10 = k (0.1)$, we get $k = 100$ so that $F(x) = 100x$.
+        \item The work in joules required to compress the spring from $x=0$ to $x=-0.5$ is
+        $$
+            W = \int_{a}^{b} F(x) ~ dx = \int_{0}^{-0.5} 100 x ~dx = \left. 50x^{2} \right\rvert_{0}^{-0.5} = 12.5.
+        $$
+        \item The work in joules required to stretch the spring from $x=0$ to $x=0.25$ is
+        $$
+            W = \int_{a}^{b} F(x) ~ dx = \int_{0}^{0.25} 100 x ~dx = \left. 50x^{2} \right\rvert_{0}^{0.25} = 3.125.
+        $$
+    \end{enumerate}
+\end{proof}
+\end{document}

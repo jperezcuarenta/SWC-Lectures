@@ -1,0 +1,391 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Partial Fractions}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+%% 
+% https://www.emathhelp.net/en/calculators/algebra-2/partial-fraction-decomposition-calculator/
+
+\begin{document}
+
+\encabezado
+
+\section*{Partial Fractions}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Evaluate integrals using partial fraction decomposition.
+    \end{itemize}
+\end{mdframed}
+
+Let us consider the problem of combining two fractions such as
+$$
+    \frac{3}{x - 3} - \frac{2}{x - 2} ~ .
+$$
+The idea is to find the lowest common denominator (LCD) and build each fraction to an equivalent one with the LCD as the denominator, i.e.,
+\begin{align*}
+    \frac{3}{x - 3} - \frac{2}{x - 2} 
+    & = \frac{3}{(x - 3)} \cdot \frac{(x - 2)}{(x - 2)} -  \frac{2}{(x - 2)} \cdot \frac{(x - 3)}{(x - 3)} \\
+    & = \frac{x}{x^{2} -5x + 6} ~ .
+\end{align*}
+
+It is natural to ask if there is a procedure for taking the steps in reverse. Namely, how can we find constants $A$ and $B$ such that the following holds
+\begin{align*}
+    \frac{x}{x^{2} -5x + 6}
+    & = \frac{A}{x - 3} + \frac{B}{x - 2} ~ .
+\end{align*}
+
+Let $f(x) = \frac{p(x)}{q(x)}$ be a rational polynomial function where $q(x) \neq 0$. We consider three cases
+\begin{itemize}
+    \item Case $q(x)$ has only nonrepeated linear factors \\
+    Here, $q(x)$ is of the form
+    $$
+        q(x) = (x - a_1) (x - a_2) \ldots (x - a_n)
+    $$
+    where $i \neq j$ implies $a_i \neq a_j$. The decomposition is of the form
+    $$
+        \frac{p(x)}{q(x)} = \frac{A_1}{x-a_1} + \frac{A_2}{x - a_2} + \ldots + \frac{A_n}{x-a_n}
+    $$
+    where all the $A_i$ are to be determined.
+
+    \item Case $q(x)$ has only repeated linear factors \\
+    Here, $q(x)$ is of the form
+    $$
+        q(x) = (x - a) (x - a) \ldots (x - a) = (x - a)^{n}
+    $$
+    where $n \geq 2$. The decomposition is of the form
+    $$
+        \frac{p(x)}{q(x)} = \frac{A_1}{(x-a)} + \frac{A_2}{(x - a)^2} + \ldots + \frac{A_n}{(x-a)^n}
+    $$
+    where all the $A_i$ are to be determined.
+
+    \item Case $q(x)$ has a nonrepeated irreducible quadratic factor \\
+    Here, $q(x)$ is of the form
+    $$
+    ax^{2} + bx + c
+    $$ 
+    and the decomposition allows for the term
+    $$
+        \frac{Ax+B}{ax^{2} + bx + c}
+    $$
+    where $A$ and $B$ are to be determined.
+\end{itemize}
+
+\begin{ejer}
+    Decompose
+    $$
+        f(x) = \frac{x}{x^{2} - 5x + 6}.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Notice that $f(x) = \frac{p(x)}{q(x)}$ is a rational polynomial function where
+    $$
+        q(x) = x^{2} - 5x + 6 = (x-3)(x+2)
+    $$
+    implies that $q(x)$ only has nonrepeated linear factors. Hence, we have
+    \begin{align*}
+        \frac{x}{x^{2} - 5x + 6}
+        & = \frac{x}{(x - 3)(x - 2)} \\ 
+        & = \frac{A}{(x - 3)} + \frac{B}{(x - 2)} \\
+        & = \frac{\left(x - 3\right) B + \left(x - 2\right) A}{\left(x - 3\right) \left(x - 2\right)} ~ .
+    \end{align*}
+    Now we compare numerators,
+    \begin{align*}
+        x & = \left(x - 3\right) B + \left(x - 2\right) A \\
+        & = x A + x B - 2 A - 3 B \\
+        & = x \left(A + B\right) - 2 A - 3 B ~
+    \end{align*}
+    which is equivalent to solving the system of equations
+    $$
+        \begin{cases} A + B = 1\\-2 A - 3 B = 0 \end{cases}
+    $$
+    so that
+    $$
+        A = 3
+    $$
+    and
+    $$
+        B = -2 ~ .
+    $$
+    Finally,
+    $$
+        \frac{x}{\left(x - 3\right) \left(x - 2\right)}=\frac{3}{x - 3} - \frac{2}{x - 2} ~ .
+    $$
+\end{proof}
+
+\begin{ejer}
+    Integrate
+    $$
+        \int \frac{x}{x^{2} - 5x + 6} ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    From the previous exercise, we have
+    \begin{align*}
+      \int \frac{x}{\left(x - 3\right) \left(x - 2\right)} ~ dx 
+      & = \int \frac{3}{x - 3} - \frac{2}{x - 2} ~ dx \\
+      & = 3\ln(|x - 3|) - 2 \ln(|x - 2|) + C ~ .
+    \end{align*}
+\end{proof}
+
+In general, we will follow the steps.
+\begin{itemize}
+    \item Check if fraction is improper, if so apply long division.
+    \item Factor the denominator.
+    \item Write out the partial fraction decomposition.
+\end{itemize}
+
+\begin{ejer}
+    Integrate
+    $$
+        \int \frac{2x-1}{4x^2 - 9} ~ dx.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Factor the denominator
+    $$
+        \frac{2 x - 1}{4 x^{2} - 9}=\frac{2 x - 1}{\left(2 x - 3\right) \left(2 x + 3\right)} ~ .
+    $$
+    The form of the partial fraction decomposition is
+    $$
+        \frac{2 x - 1}{\left(2 x - 3\right) \left(2 x + 3\right)}=\frac{A}{2 x - 3}+\frac{B}{2 x + 3} ~ .
+    $$
+    Write the right-hand side as a single fraction:
+    $$
+        \frac{2 x - 1}{\left(2 x - 3\right) \left(2 x + 3\right)}=\frac{\left(2 x - 3\right) B + \left(2 x + 3\right) A}{\left(2 x - 3\right) \left(2 x + 3\right)} ~ .
+    $$
+    The denominators are equal, so we require the equality of the numerators:
+    $$
+        2 x - 1=\left(2 x - 3\right) B + \left(2 x + 3\right) A ~ .
+    $$
+    Expand the right-hand side:
+    $$
+        2 x - 1=2 x A + 2 x B + 3 A - 3 B ~ .
+    $$
+    Collect like terms:
+    $$
+        2 x - 1=x \left(2 A + 2 B\right) + 3 A - 3 B ~ .
+    $$
+    The coefficients near the like terms should be equal, so the following system is obtained:
+    $$
+        \begin{cases} 2 A + 2 B = 2\\3 A - 3 B = -1 \end{cases}
+    $$
+    so that 
+    $$
+        A = \frac{1}{3}
+    $$
+    and
+    $$
+        B = \frac{2}{3} ~ .
+    $$
+    Hence,
+    $$
+        \frac{2 x - 1}{\left(2 x - 3\right) \left(2 x + 3\right)}=\frac{1}{3(2 x - 3)}+\frac{2}{3(2 x + 3)} ~ .
+    $$
+    Now we integrate,
+    \begin{align*}
+        \int \frac{2x-1}{4x^2 - 9} ~ dx
+        & = \int \frac{2 x - 1}{\left(2 x - 3\right) \left(2 x + 3\right)} ~ dx \\ 
+        & = \int \frac{1}{3(2 x - 3)} + \frac{2}{3(2 x + 3)} ~ dx \\
+        & = \frac{1}{6} \ln(|2x-3|) + \frac{1}{3} \ln(|2x + 3|) + C .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Integrate
+    $$
+        \int \frac{4x+7}{(x+1)^2} ~ dx.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    The form of the partial fraction decomposition is
+    $$
+        \frac{4 x + 7}{\left(x + 1\right)^{2}}=\frac{A}{x + 1}+\frac{B}{\left(x + 1\right)^{2}} ~ .
+    $$
+    Write the right-hand side as a single fraction:
+    $$
+        \frac{4 x + 7}{\left(x + 1\right)^{2}}=\frac{\left(x + 1\right) A + B}{\left(x + 1\right)^{2}} ~ .
+    $$
+    The denominators are equal, so we require the equality of the numerators:
+    $$
+        4 x + 7=\left(x + 1\right) A + B ~ .
+    $$
+    Expand the right-hand side:
+    $$
+    4 x + 7=x A + A + B ~ .
+    $$
+    Collect like terms:
+    $$
+        4 x + 7=x A + A + B ~ .
+    $$
+    The coefficients near the like terms should be equal, so the following system is obtained:
+    $$
+        \begin{cases} A = 4\\A + B = 7 \end{cases} 
+    $$
+    so that 
+    $$
+        A = 4
+    $$
+    and
+    $$
+        B = 3 ~ .
+    $$
+    Hence,
+    $$
+        \frac{4 x + 7}{\left(x + 1\right)^{2}}=\frac{4}{x + 1}+\frac{3}{\left(x + 1\right)^{2}} ~ .
+    $$
+    Now we integrate,
+    \begin{align*}
+        \int \frac{4x+7}{(x+1)^2} ~ dx
+        & = \int \frac{4}{x + 1}+\frac{3}{\left(x + 1\right)^{2}} ~ dx \\ 
+        & = 4\ln(|x+1|) - \frac{3}{x+1} + C.
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Integrate
+    $$
+        \int \frac{2x+3}{x^3-2x^2+3x-6} ~ dx.
+    $$
+\end{ejer}
+\begin{proof}
+    Simplify the expression
+    $$
+        \frac{2 x + 3}{x^{3} - 2 x^{2} + 3 x - 6}=\frac{2 x + 3}{\left(x - 2\right) \left(x^{2} + 3\right)} ~ .
+    $$
+    The form of the partial fraction decomposition is
+    $$
+        \frac{2 x + 3}{\left(x - 2\right) \left(x^{2} + 3\right)}=\frac{A}{x - 2}+\frac{B x + C}{x^{2} + 3} ~ .
+    $$
+    Write the right-hand side as a single fraction:
+    $$
+        \frac{2 x + 3}{\left(x - 2\right) \left(x^{2} + 3\right)}=\frac{\left(x - 2\right) \left(B x + C\right) + \left(x^{2} + 3\right) A}{\left(x - 2\right) \left(x^{2} + 3\right)} ~ .
+    $$
+    The denominators are equal, so we require the equality of the numerators:
+    $$
+        2 x + 3=\left(x - 2\right) \left(B x + C\right) + \left(x^{2} + 3\right) A ~ .
+    $$
+    Expand the right-hand side:
+    $$
+        2 x + 3=x^{2} A + x^{2} B - 2 x B + x C + 3 A - 2 C ~ .
+    $$
+    Collect like terms:
+    $$
+        2 x + 3=x^{2} \left(A + B\right) + x \left(- 2 B + C\right) + 3 A - 2 C ~ .
+    $$
+    The coefficients near the like terms should be equal, so the following system is obtained:
+    $$
+        \begin{cases} A + B = 0\\- 2 B + C = 2\\3 A - 2 C = 3 \end{cases}
+    $$
+    so that
+    $$
+        A = 1, B = -1, \text{ and } C = 0 ~ .
+    $$
+    Hence,
+    $$
+        \frac{2 x + 3}{\left(x - 2\right) \left(x^{2} + 3\right)}=\frac{1}{x - 2} - \frac{x}{x^{2} + 3} ~ .
+    $$
+    Now we integrate,
+    \begin{align*}
+        \int \frac{2x+3}{x^3-2x^2+3x-6} ~ dx
+        & = \int \frac{1}{x - 2}-\frac{x}{x^{2} + 3} ~ dx \\
+        & = \ln(|x - 2|) - \frac{1}{2} \ln(x^2 + 3) + C ~ .
+    \end{align*}
+
+\end{proof}
+
+\begin{ejer}
+    Integrate
+    $$
+        \int \frac{x^3+x-3}{x^2 - 4} ~ dx.
+    $$
+\end{ejer}
+\begin{proof}
+    Since the fraction is improper, we use long division to get the following result
+    $$
+        \frac{x^{3} + x - 3}{x^{2} - 4}=x+\frac{5 x - 3}{x^{2} - 4} ~ .
+    $$
+    Now, we deal with the fractional part. Namely,
+    $$
+        \frac{5 x - 3}{x^{2} - 4} ~ .
+    $$
+    Factor the denominator:
+    $$
+        \frac{5 x - 3}{x^{2} - 4}=\frac{5 x - 3}{\left(x - 2\right) \left(x + 2\right)} ~ .
+    $$
+    The form of the partial fraction decomposition is
+    $$
+        \frac{5 x - 3}{\left(x - 2\right) \left(x + 2\right)}=\frac{A}{x - 2}+\frac{B}{x + 2} ~ .
+    $$
+    Write the right-hand side as a single fraction:
+    $$
+        \frac{5 x - 3}{\left(x - 2\right) \left(x + 2\right)}=\frac{\left(x - 2\right) B + \left(x + 2\right) A}{\left(x - 2\right) \left(x + 2\right)} ~ .
+    $$
+    The denominators are equal, so we require the equality of the numerators:
+    $$
+        5 x - 3=\left(x - 2\right) B + \left(x + 2\right) A ~ .
+    $$
+    Expand the right-hand side:
+    $$
+        5 x - 3=x A + x B + 2 A - 2 B ~ .
+    $$
+    Collect like terms:
+    $$
+        5 x - 3=x \left(A + B\right) + 2 A - 2 B ~ .
+    $$
+    The coefficients near the like terms should be equal, so the following system is obtained:
+    $$
+        \begin{cases} A + B = 5\\2 A - 2 B = -3 \end{cases}
+    $$
+    so that
+    $$
+    A = \frac{7}{4}
+    $$
+    and
+    $$
+    B = \frac{13}{4} ~ .
+    $$
+    Hence,
+    $$
+        \frac{5 x - 3}{\left(x - 2\right) \left(x + 2\right)}=\frac{7}{4(x - 2)}+\frac{13}{4(x + 2)} ~ .
+    $$
+    Now integrate,
+    \begin{align*}
+        \int \frac{x^3+x-3}{x^2 - 4} ~ dx
+        & = \int x + \frac{7}{4(x - 2)}+\frac{13}{4(x + 2)} dx \\
+        & = \frac{1}{4} \left( 2x^{2} + 7 \ln(|x-2|) + 13 \ln(x + 2) \right) + C ~ .
+    \end{align*}
+\end{proof}
+
+\end{document}

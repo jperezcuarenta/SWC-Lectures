@@ -66,10 +66,9 @@
   \end{frame}
 
   \begin{frame}
-  \frametitle{Overview}
-  %    \begin{multicols}{2}
-      \tableofcontents
-  %    \end{multicols}
+    \begin{multicols}{2}
+        \tableofcontents
+        \end{multicols}
   \end{frame}
 
 \section{Basics}
@@ -175,8 +174,8 @@ public class HelloWorld {
     Let's start with a program:
     \begin{lstlisting}
     // Variable.java
-    pubic class Variable {
-        pubic static void main(String[] args) {
+    public class Variable {
+        public static void main(String[] args) {
             int value;
             value = 5;
             System.out.print("The value is ");
@@ -223,8 +222,8 @@ public class HelloWorld {
     Look at a similar program that uses quotation marks around a \violet{variable}.
     \begin{lstlisting}
     // Variable02.java
-    pubic class Variable02 {
-        pubic static void main(String[] args) {
+    public class Variable02 {
+        public static void main(String[] args) {
             int value;
             value = 5;
             System.out.print("The value is ");
@@ -283,7 +282,7 @@ public class HelloWorld {
     mixture#3; // illegal: use of #
     week day; // illegal: has a space
     \end{lstlisting}
-    Variable names: standard practice is to use Snake Case (this\_is\_a\_variable\_name) or Camel Case (thisIsAVarialeName). \\ \vspace{1em}
+    Variable names: standard practice is to use Snake Case (this\_is\_a\_variable\_name) or Camel Case (thisIsAVariableName). \\ \vspace{1em}
     Class names: standard practice is Pascal Case (ThisIsAClassName).
 \end{frame}
 
@@ -346,7 +345,7 @@ public class HelloWorld {
 
 \begin{frame}[fragile]{Primitive Data Types}
     A value is put into a \violet{variable} with an assignment statement. \\ \vspace{1em}
-    For example, the following statement assigns the value 12 to the \violet{variable} unitsSold:
+    For example, the following statement assigns the value 12 to the \violet{variable} \texttt{units\_sold}:
     \begin{lstlisting}
     units_sold = 12;
     \end{lstlisting}
@@ -472,7 +471,7 @@ INTEREST_RATE = 0.01; // error
 
 \begin{frame}[fragile]{Words of Wisdom}
     A variable of any type can be associated with an item of data. \\ \vspace{1em}
-    A \violet{primitive type variable} holds the actual data item with which it associated. \\ \vspace{1em}
+    A \violet{primitive type variable} holds the actual data item it is associated with. \\ \vspace{1em}
     A \violet{class type variable} does not hold the actual data item that it is associated with. \\ \vspace{1em}
     A \violet{class type variable} holds the memory address of the data item it is associated with. \\ \vspace{1em}
     \begin{lstlisting}
@@ -487,7 +486,7 @@ String string_var = "pokemon";
     Any time you write a string literal in your program, Java will create a \violet{String object} in memory to hold it. \\ \vspace{1em}
     You can create a \violet{String object} in memory and store its address in a \violet{String variable} with a simple assignment statement.
     \begin{lstlisting}
-String name = Joe Mahoney";
+String name = "Joe Mahoney";
     \end{lstlisting}
     The \violet{string literal} causes a \violet{String object} to be created in memory with the value ``Joe Mahoney'' stored in it. \\ \vspace{1em}
     The assignment operator stores the address of that object in the \texttt{name} variable.
@@ -530,7 +529,164 @@ String name = Joe Mahoney";
             }
         }
     \end{lstlisting}
+\end{frame}
 
+\section{Comments, Style, and Keyboard Input}
+\subsection{Comments}
+\begin{frame}[fragile]{Comments}
+    Comments are notes of explanation that document lines or sections of a program. \\ \vspace{1em}
+    Comments are part of the program, but the compiler ignores them. \\ \vspace{1em}
+    They are intended for people who may be reading the source code. \\ \vspace{1em}
+    There are three types of comments: \red{single-line comments}, \red{multiline comments}, and \red{documentation comments}.
+\end{frame}
+
+\begin{frame}[fragile]{Comments}
+    Let's see an example of single-line comments.
+\begin{lstlisting}
+// CommentSingleLine.java
+public class CommentSingleLine {
+    public static void main(String[] args) {
+        double x = 10; // Define var x and assign value of 10
+        double y = 5; // Define var y and assign value of 5
+        double z; // Define var z
+        z = x + y; // Assign sum of 10 and 5 to z
+        }
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Comments}
+    Now, a multi-line example.
+\begin{lstlisting}
+/*
+    PROGRAM: CommentMultiLine.java
+    Written by Jesus Perez Cuarenta
+    This program shows how to add two doubles in Java.
+*/
+public class CommentMultiLine {
+    public static void main(String[] args) {
+        double x = 10;
+        double y = 5;
+        double z;
+        z = x + y;
+        }
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Comments}
+    Finally, documentation comments. \\ \vspace{1em}
+    These can be read and processed by a program named \texttt{javadoc}, which comes with the JDK. \\ \vspace{1em}
+    If the source code files contain any documentation comments, the information in the comments becomes part of the HTML documentation. \\ \vspace{1em}
+    The HTML documentation files may be viewed in a Web browser. \\ \vspace{1em}
+    \red{Any comment that starts with \slash{}** and ends with *\slash{} is considered a documentation comment.}
+\end{frame}
+
+\begin{frame}[fragile]{Comments}
+    \begin{lstlisting}
+/**
+    This class crates a program that adds two numbers of type double.
+*/
+public class CommentDocumentation {
+    /**
+        The main method is the program's starting point.
+    */
+    public static void main(String[] args) {
+        double x = 10;
+        double y = 5;
+        double z = x + y;
+        }
+    }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Comments}
+    You can run the \texttt{javadoc} program from the operating system command prompt. \\ \vspace{1em}
+    The general form is
+\begin{lstlisting}
+javadoc SourceFile.java
+\end{lstlisting}
+    For our example, we would type
+\begin{lstlisting}
+javadoc CommentDocumentation.java
+\end{lstlisting}
+\end{frame}
+
+\subsection{Programming Style}
+\begin{frame}[fragile]{Programming Style}
+    Programming style refers to the way a programmer uses spaces, indentations, blank lines, and punctuation characters to visually arrange a program's source code. \\ \vspace{1em}
+    The compiler doesn't care that each statement is on a separate line, or that spaces separate operators from operands. \\ \vspace{1em}
+    Humans find it difficult to read programs that aren't written in a visually pleasing manner.
+\end{frame}
+
+\begin{frame}[fragile]{Programming Style}
+    What to avoid:
+    \begin{lstlisting}
+// Compact.java
+public class Compact {public static void main(String[] args) {int
+    shares=220; double averagePrice=14.67; System.out.println(
+    "There were "+shares+" shares sold at $"+averagePrice+
+    " per share.");}}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Programming Style}
+    Instead, follow:
+    \begin{lstlisting}
+public class Readable {
+    public static void main(String[] args) {
+        int shares = 220;
+        double averagePrice = 14.67;
+        System.out.println(
+            "There were " + shares
+            + " shares sold at $"
+            + averagePrice + " per share."
+            );
+        }
+    }
+    \end{lstlisting}
+\end{frame}
+
+\subsection{Reading Keyboard Input}
+\begin{frame}[fragile]{Reading Keyboard Input}
+    Recall that the \texttt{System.out} object refers to the standard output device. \\ \vspace{1em}
+    The Java API has another object: \texttt{System.in}, which refers to the standard input device. \\ \vspace{1em}
+    The \texttt{System.in} object reads input only as \texttt{byte} values. \\ \vspace{1em}
+    We typically read keystrokes using \texttt{System.in} in conjunction with an object from the \texttt{Scanner} class.
+\end{frame}
+
+\begin{frame}[fragile]{Reading Keyboard Input}
+    Here is a snippet that can be included inside the \texttt{main} method in a Java program:
+\begin{lstlisting}
+int number;
+Scanner keyboard = new Scanner(System.in);
+System.out.print("Enter an integer value: ");
+number = keyboard.nextInt();
+System.out.println(number);
+\end{lstlisting}
+Note that the \texttt{nextInt} method formats an input value as an \texttt{int} which jives with the definition of the \texttt{number} variable.
+\end{frame}
+
+\begin{frame}[fragile]{Reading Keyboard Input}
+    The \texttt{Scanner} class contains more methods similar to \texttt{nextInt} such as
+    \begin{itemize}
+        \item \texttt{nextByte}
+        \item \texttt{nextDouble}
+        \item \texttt{nextFloat}
+        \item \texttt{nextInt}
+        \item \texttt{nextLine}
+        \item \texttt{nextLong}
+        \item \texttt{nextShort}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Reading Keyboard Input}
+    The \texttt{Scanner} class is not automatically available to your Java program. \\ \vspace{1em}
+    Any program that uses the \texttt{Scanner} class should have the following statement near the beginning of the file, before any class definition:
+    \begin{lstlisting}
+import java.util.Scanner;
+    \end{lstlisting}
+This statement tells the Java compiler where in the Java library to find the \texttt{Scanner} class, and makes it available to your program.
 \end{frame}
 
 \end{document}

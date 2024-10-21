@@ -1,0 +1,219 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Basic Approaches}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+\begin{document}
+
+\encabezado
+
+\section*{Basic Approaches}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Review strategies for fitting an integrand to one of the basic integration rules.
+    \end{itemize}
+\end{mdframed}
+Let's begin with a summary of useful integration tricks covered thus far. We've covered
+\begin{itemize}
+    \item expanding the numerator,
+    $$
+        (x ^ {2} + 8)^{2} = x ^ {4} + 16x ^ {2} + 64
+    $$
+    \item separating the numerator,
+    $$
+        \frac{x - 3}{1 + x ^ {2}} = \frac{x}{1 + x ^ {2}} - \frac{3}{1 + x ^ {2}}
+    $$
+    \item completing the square,
+    $$
+        \frac{1}{\sqrt{4x - x^{2}}} = \frac{1}{\sqrt{4 - (x - 2)^{2}}}
+    $$
+    \item long division,
+    $$
+        \frac{x^{2}}{1 + x^{2}} = 1 - \frac{1}{1 + x^{2}}
+    $$
+    \item adding and subtracting terms in the numerator,
+    $$
+        \frac{2x}{x^{2} + 6x + 9} = \frac{2x + 6 - 6}{x^{2} + 6x + 9} = \frac{2x + 6}{x^{2} + 6x + 9} - \frac{6}{x^{2} + 6x + 9}
+    $$
+    \item using trigonometric identities,
+    $$
+        \cos^{2}(x) = \frac{1}{2} \left( 1 + \cos(2x) \right)
+    $$
+    \item and multiplying by a convenient 1
+    \begin{align*}
+        \frac{1}{1 + \cos(x)} 
+        & = \frac{1}{1 + \cos(x)} \left( \frac{1-\cos(x)}{1 - \cos(x)} \right) \\
+        & = \frac{1 - \cos(x)}{1 - \cos^{2}(x)} \\
+        & = \frac{1-\cos(x)}{\sin^{2}(x)} \\
+        & = \csc^{2}(x) - \csc(x) \cot(x) ~ .
+    \end{align*}
+
+    We list out some trigonometric identities that will be useful.
+    \begin{enumerate}
+        \item Pythagorean Identities
+        \begin{align*}
+            \sin^{2}(\theta) + \cos^{2}(\theta) = 1, \\
+            \tan^{2}(\theta) + 1 = \sec^{2}(\theta), \\
+            \cot^{2}(\theta) + 1 = \csc^{2}(\theta).
+        \end{align*}
+        \item Double-Angle Formulas
+        \begin{align*}
+            \sin(2\theta) = 2 \sin(\theta) \cos(\theta), \\
+            \cos(2\theta) = \cos^{2}(\theta) - \sin^{2}(\theta), \\
+            \cos(2\theta) = 1 - 2\sin^{2}(\theta), \\
+            \cos(2\theta) = 2 \cos^{2}(\theta) - 1.
+        \end{align*}
+        \item Half-Angle Formulas
+        \begin{align*}
+            \sin^{2}(\theta) = \frac{1}{2} \left( 1 - \cos(2\theta) \right), \\
+            \cos^{2}(\theta) = \frac{1}{2} \left( 1 + \cos(2\theta) \right).
+        \end{align*}
+    \end{enumerate}
+\end{itemize}
+
+\begin{ejer}
+    Evaluate the integral
+    $$
+        \int \frac{4x + 1}{x^{2} + 9} ~ dx
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+        \int \frac{4x + 1}{x^{2} + 9} ~ dx 
+        & = 4\int \frac{x}{x^{2} + 9} ~ dx + \int \frac{1}{x^{2} + 9} ~ dx \\
+        & = 2 \ln(x^{2} + 9) + \frac{1}{3} \arctan\left(\frac{x}{3}\right) + C ~ .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate the integral
+    $$
+        \int \frac{1}{5 + 3e^{x}} ~ dx
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    % Multiply by "1"
+    Observe $1 = \frac{\mathrm{e}^{-x}}{\mathrm{e}^{-x}}$ so that
+    \begin{align*}
+    \int \frac{1}{5 + 3e^{x}} ~ dx 
+    & = \int \frac{1}{5 + 3e^{x}} \cdot 1 ~ dx \\
+    & = \int \frac{1}{5 + 3e^{x}} \cdot \frac{\mathrm{e}^{-x}}{\mathrm{e}^{-x}} ~ dx \\ 
+    & = \int \frac{\mathrm{e}^{-x}}{5\mathrm{e}^{-x} + 3} ~ dx .
+    \end{align*}
+    Let $u = 5\mathrm{e}^{-x} + 3$. It follows that $du = 5 \mathrm{e}^{-x} ~dx$ and thus
+    \begin{align*}
+        \int \frac{\mathrm{e}^{-x}}{5\mathrm{e}^{-x} + 3} ~ dx
+        & = \frac{1}{5} \int \frac{1}{u} ~ du \\
+        & = \frac{1}{5} \ln(|u|) + C \\
+        & = \frac{1}{5} \ln(|5\mathrm{e}^{-x} + 3|) + C \\
+        & = \frac{1}{5} \ln(5\mathrm{e}^{-x} + 3) + C ~ .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate the integral
+    $$
+        \int \tan^{2}(2x) ~ dx
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Note that
+    \begin{align*}
+        \int \tan^{2}(2x) ~ dx 
+        & = \int \sec^{2}(2x) - 1 ~ dx \\
+        & = \frac{1}{2}\tan(2x) - x + C ~ .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate the integral
+    $$
+        \int \frac{x^{2}}{x + 4} ~ dx
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    By polynomial long division, we get
+    $$
+        \frac{x^{2}}{x+4} = x - 4 + \frac{16}{x + 4}
+    $$
+    and hence
+    \begin{align*}
+        \int \frac{x^{2}}{x + 4} ~ dx
+        & = \int x - 4 + \frac{16}{x + 4} ~ dx \\
+        & = \frac{1}{2}x^{2} - 4x + 16 \ln|x + 4| + C ~ .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate the integral
+    $$
+        \int \frac{\left(1 + \mathrm{e}^{t} \right)^{2}}{\mathrm{e}^{4t}} ~ dt
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Note that $(1+\mathrm{e}^{t})^2 = 1 + 2\mathrm{e}^{t} + \mathrm{e}^{2t}$. Thus,
+    \begin{align*}
+        \int \frac{\left(1 + \mathrm{e}^{t} \right)^{2}}{\mathrm{e}^{4t}} ~ dt
+        & = \int \frac{1}{\mathrm{e}^{4t}} + \frac{\mathrm{2e}^{t}}{\mathrm{e}^{4t}} + \frac{\mathrm{e}^{2t}}{\mathrm{e}^{4t}} ~ dt \\
+        & = \int \mathrm{e}^{-4t} + 2\mathrm{e}^{-3t} + \mathrm{e}^{-2t} ~ dt \\
+        & = -\frac{1}{4} \mathrm{e}^{-4t} - \frac{2}{3} \mathrm{e}^{-3t} - \frac{1}{2} \mathrm{e}^{-2t} + C ~ .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate the integral
+    $$
+        \int \frac{1}{\sqrt{1 - 4x - x^{2}}} ~ dx
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    By completing the square, we have
+    \begin{align*}
+        1 - 4x - x^{2} 
+        & = 1 - (x^{2} + 4x + \text{\makebox[1cm]{\hrulefill}}) + \text{\makebox[1cm]{\hrulefill}} \\
+        & = 1 - (x^{2} + 4x + (2)^{2}) + (2)^2 \\
+        & = 1 - (x + 2)^{2} + 4 \\
+        & = 5 - (x + 2)^{2}
+    \end{align*}
+    so that
+    \begin{align*}
+        \int \frac{1}{\sqrt{1 - 4x - x^{2}}} ~ dx
+        & = \int \frac{1}{\sqrt{5 - (x + 2)^{2}}} ~ dx \\
+        & = \arcsin\left( \frac{x + 2}{\sqrt{5}} \right) + C ~ .
+    \end{align*}
+\end{proof}
+
+\end{document}

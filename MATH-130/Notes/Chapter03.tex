@@ -16,21 +16,22 @@
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 \lstset{
-  language=Java,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=3
-}
+    language=Java,
+    frame=single,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3
+    }
 
 \makeatletter
 \let\save@measuring@true\measuring@true
@@ -125,20 +126,20 @@
 \begin{frame}[fragile]{Relational Operators}
     Here is how they look in Java
     \begin{lstlisting}
-    // RelationalOperators.java
-    public class RelationalOperators {
-        public static void main(String[] args) {
-            int x, y;
-            boolean test1, test2;
-            x = 1;
-            y = 5;
-            test1 = x < y;  // RHS evaluates to true
-            test2 = x > y;  // RHS evaluates to false
-    
-            System.out.println("x < y is: " + test1);
-            System.out.println("x > y is: " + test2);
-            }
+// RelationalOperators.java
+public class RelationalOperators {
+    public static void main(String[] args) {
+        int x, y;
+        boolean test1, test2;
+        x = 1;
+        y = 5;
+        test1 = x < y;  // RHS evaluates to true
+        test2 = x > y;  // RHS evaluates to false
+
+        System.out.println("x < y is: " + test1);
+        System.out.println("x > y is: " + test2);
         }
+    }
     \end{lstlisting}
 \end{frame}
 
@@ -199,20 +200,20 @@
 \begin{frame}[fragile]{if-else Statement}
     Example code with if-else
         \begin{lstlisting}
-    // Division.java
-    public class Division {
-    	public static void main (String[] args) {
-    		double number1, number2, quotient;
-    		number1 = 10;
-    		number2 = 5;
-    		if (number2 == 0)
-    			System.out.print("Division by zero not allowed.");
-    		else {
-    			quotient = number1 / number2;
-    			System.out.print("Quotient is: " + quotient);
-    			}
-    		}
+// Division.java
+public class Division {
+    public static void main (String[] args) {
+        double number1, number2, quotient;
+        number1 = 10;
+        number2 = 5;
+        if (number2 == 0)
+            System.out.print("Division by zero not allowed.");
+        else {
+            quotient = number1 / number2;
+            System.out.print("Quotient is: " + quotient);
+            }
         }
+    }
     \end{lstlisting}
 \end{frame}
 
@@ -296,45 +297,45 @@
 \begin{frame}[fragile]{Logical Operators - AND}
     Example code with logical operator \&\& 
     \begin{lstlisting}
-    // LogicalAnd.java
-    public class LogicalAnd {
-    	public static void main (String[] args) {
-    		double temperature, minutes;
-    		temperature = 5;
-    		minutes = 20;
-    		if (temperature < 20 && minutes > 12)	// AND
-    			System.out.print("Danger.");
-    		}
+// LogicalAnd.java
+public class LogicalAnd {
+    public static void main (String[] args) {
+        double temperature, minutes;
+        temperature = 5;
+        minutes = 20;
+        if (temperature < 20 && minutes > 12)	// AND
+            System.out.print("Danger.");
         }
+    }
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Logical Operators - OR}
     Example code with logical operator $\mid \mid$
     \begin{lstlisting}
-    // LogicalOr.java
-    public class LogicalOr {
-    	public static void main (String[] args) {
-    		double temperature;
-    		temperature = 120;
-    		if (temperature < 20 || temperature > 100)	// OR
-    			System.out.print("Danger.");
-        }
+// LogicalOr.java
+public class LogicalOr {
+    public static void main (String[] args) {
+        double temperature;
+        temperature = 120;
+        if (temperature < 20 || temperature > 100)	// OR
+            System.out.print("Danger.");
+    }
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Logical Operators - NOT}
     Example code with logical operator !
     \begin{lstlisting}
-    // LogicalNot.java
-    public class LogicalNot {
-    	public static void main (String[] args) {
-    		double temperature;
-    		temperature = 50;
-    		if (!(temperature > 100))	// NOT
-    			System.out.print("Danger.");
-    		}
+// LogicalNot.java
+public class LogicalNot {
+    public static void main (String[] args) {
+        double temperature;
+        temperature = 50;
+        if (!(temperature > 100))	// NOT
+            System.out.print("Danger.");
         }
+    }
     \end{lstlisting}
 \end{frame}
 
@@ -361,11 +362,11 @@
 \begin{frame}[fragile]{Comparing String Objects}
     When comparing {String} objects, it is best to do so with String methods.
         \begin{lstlisting}
-        String name1 = "Mark";
-        String name2 = "Mary";
-        if (name1 == name2) { // false
-            System.out.print("Something.");
-            }
+String name1 = "Mark";
+String name2 = "Mary";
+if (name1 == name2) { // false
+    System.out.print("Something.");
+    }
     \end{lstlisting}
     The previous relational operator evaluates to false but not because the strings are different. It's because it's comparing the address of the String objects.
 \end{frame}
@@ -374,24 +375,24 @@
 \begin{frame}[fragile]{String.equals() Method}
     We can instead call the String class's \violet{equals} method.
         \begin{lstlisting}
-        String name1 = "Mark";
-        String name2 = "Mary";
-        if (name1.equals(name2)) { // false
-            System.out.print("Something.");
-            }
+String name1 = "Mark";
+String name2 = "Mary";
+if (name1.equals(name2)) { // false
+    System.out.print("Something.");
+    }
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{String.equals() Method}
     For those of you that are not convinced, feel free to play around with this example.
         \begin{lstlisting}
-        String name1 = "Mark";
-        String name2 = "Mark";
-        String name3 =  new String("Mark"); 
-        System.out.println(name1 == name2); // true
-        System.out.println(name1 == name3); // false
-        System.out.println(name1.equals(name2)); // true
-        System.out.println(name1.equals(name3)); // true
+String name1 = "Mark";
+String name2 = "Mark";
+String name3 =  new String("Mark"); 
+System.out.println(name1 == name2); // true
+System.out.println(name1 == name3); // false
+System.out.println(name1.equals(name2)); // true
+System.out.println(name1.equals(name3)); // true
         \end{lstlisting}
 \end{frame}
 
@@ -433,28 +434,28 @@
 \begin{frame}[fragile]{Numeric Example}
     The following code showcases how to interchange if-else with conditional operators on numeric data.
     \begin{lstlisting}
-        // if-else
-        if (x < 0)
-            y = 10;
-        else
-            y = 20;
-        // Conditional operator
-        y = x < 0 ? 10 : 20;
+    // if-else
+    if (x < 0)
+        y = 10;
+    else
+        y = 20;
+    // Conditional operator
+    y = x < 0 ? 10 : 20;
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Printing String Object Example}
     The following code showcases how to interchange if-else with conditional operators on String objects.
     \begin{lstlisting}
-        // if-else
-        if (score < 60)
-            System.out.println("Your grade is: Fail");
-        else
-            System.out.println("Your grade is: Pass");
-        // Conditional operator
-            System.out.println("Your grade is " 
-                + (score < 60 ? "Fail." : "Pass.")
-                );
+    // if-else
+    if (score < 60)
+        System.out.println("Your grade is: Fail");
+    else
+        System.out.println("Your grade is: Pass");
+    // Conditional operator
+        System.out.println("Your grade is " 
+            + (score < 60 ? "Fail." : "Pass.")
+            );
     \end{lstlisting}
 \end{frame}
 

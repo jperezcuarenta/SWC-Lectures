@@ -1,0 +1,249 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc} 
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Improper Integrals}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+%% 
+% https://www.emathhelp.net/en/calculators/algebra-2/partial-fraction-decomposition-calculator/
+
+\begin{document}
+
+\encabezado
+
+\section*{Improper Integrals}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Define Type I and Type II improper integrals.
+        \item Evaluate Type I and Type II improper integrals.
+    \end{itemize}
+\end{mdframed}
+
+\begin{defi}[Improper Integrals over Infinite Intervals (Type 1)]
+    \begin{enumerate}
+        \item If $f$ is continuous on $[a, \infty)$, then
+        $$
+            \int_{a}^{\infty} f(x) ~ dx = \lim_{b \to \infty} \int_{a}^{b} f(x) ~ dx.
+        $$
+        \item If $f$ is continuous on $(-\infty, b]$, then
+        $$
+            \int_{-\infty}^{b} f(x) ~ dx = \lim_{a \to -\infty} \int_{a}^{b} f(x) ~ dx .
+        $$
+        \item If $f$ is continuous on $(-\infty, \infty)$, then
+        $$
+            \int_{-\infty}^{\infty} f(x) ~ dx = \lim_{a \to -\infty} \int_{a}^{c} f(x) ~ dx + \lim_{b \to \infty} \int_{c}^{b} f(x) ~ dx 
+        $$
+        where $c$ is any real number.
+    \end{enumerate}
+    If the limits in cases 1-3 exist, then the improper integrals \textbf{converge}; otherwise, they \textbf{diverge}.
+\end{defi}
+`   1'
+\begin{ejer}
+    Evaluate the improper integral
+    $$
+        \int_{1}^{\infty} \frac{1}{x^{2}} ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+        \int_{1}^{\infty} \frac{1}{x^{2}} ~ dx
+            & = \lim_{b \to \infty} \int_{1}^{b} \frac{1}{x^{2}}~dx \\
+            & = \lim_{b \to \infty} \left. -\frac{1}{x} \right\rvert_{1}^{b} \\
+            & = \lim_{b \to \infty} \left( -\frac{1}{(b)} + \frac{1}{(1)} \right) \\
+            & = 1 ~ .
+    \end{align*}
+    Since the limit exists, the integral is \textbf{convergent}.
+\end{proof}
+
+\begin{ejer}
+    Evaluate the improper integral
+    $$
+        \int_{1}^{\infty} \frac{1}{\sqrt{x}} ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+        \int_{1}^{\infty} \frac{1}{\sqrt{x}} ~ dx
+            & = \lim_{b \to \infty} \int_{1}^{b} \frac{1}{\sqrt{x}} ~ dx \\
+            & = \lim_{b \to \infty} \left. 2\sqrt{x} \right\rvert_{1}^{b} \\
+            & = \lim_{b \to \infty} 2 \left( \sqrt{b} - \sqrt{1} \right) \\
+            & = \infty ~ .
+    \end{align*}
+    Since the limit does not exist, the integral is \textbf{divergent}.
+\end{proof}
+
+\begin{ejer}
+    Evaluate the improper integral
+    $$
+        \int_{-\infty}^{-3} \frac{1}{x^{4}} ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+        \int_{-\infty}^{-3} \frac{1}{x^{4}} ~ dx
+            & = \lim_{a \to -\infty} \int_{a}^{-3} \frac{1}{x^{4}} ~ dx \\
+            & = \lim_{a \to -\infty} \left. -\frac{1}{3x^{3}} \right\rvert_{a}^{-3} \\
+            & = \lim_{a \to -\infty} -\frac{1}{3} \left( \frac{1}{(-3)^{3}} - \frac{1}{(a)^{3}} \right) \\
+            & = \frac{1}{81} ~ .
+    \end{align*}
+    Since the limit exists, the integral is \textbf{convergent}.
+\end{proof}
+
+\begin{ejer}
+    Evaluate the improper integral
+    $$
+        \int_{-\infty}^{4} 8\mathrm{e}^{(-5x)} ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+        \int_{-\infty}^{4} 8\mathrm{e}^{(-5x)} ~ dx
+            & = \lim_{a \to -\infty} \int_{a}^{4} 8\mathrm{e}^{(-5x)} ~ dx \\
+            & = \lim_{a \to -\infty} \left. -\frac{8}{5}  \mathrm{e}^{(-5x)} \right\rvert_{a}^{4} \\
+            & = \lim_{a \to -\infty} -\frac{8}{5} \left( \mathrm{e}^{(-5(4))} - \mathrm{e}^{(-5(a))} \right) \\
+            & = \infty ~ .
+    \end{align*}
+    Since the limit does not exist, the integral is \textbf{divergent}.
+\end{proof}
+
+\begin{ejer}
+    Evaluate the improper integral
+    $$
+        \int_{-\infty}^{\infty} \frac{1}{1 + x^{2}} ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+        \int_{-\infty}^{\infty} \frac{1}{1 + x^{2}} ~ dx
+            & = \lim_{a \to -\infty} \int_{a}^{0} \frac{1}{1 + x^{2}} ~ dx 
+                + \lim_{b \to \infty} \int_{0}^{b} \frac{1}{1 + x^{2}} ~ dx  \\
+            & = \lim_{a \to -\infty} \left. \arctan(x) \right\rvert_{a}^{0}
+                + \lim_{b \to \infty} \left. \arctan(x) \right\rvert_{0}^{b} \\
+            & = \lim_{a \to -\infty} \left( \arctan(0) - \arctan(a) \right)
+                + \lim_{b \to \infty} \left( \arctan(b) - \arctan(0) \right) \\
+            & = \frac{\pi}{2} + \frac{\pi}{2} \\
+            & = \pi ~ .
+    \end{align*}
+    Since the limit exists, the integral is \textbf{convergent}.
+\end{proof}
+
+\begin{teo}[Improper Integrals over Infinite Intervals (Type 2)]
+    \begin{enumerate}
+        \item Suppose $f$ is continuous on $(a, b]$ with
+        $$
+            \lim_{x \to a^{+}} f(x) = \pm \infty.
+        $$
+        Then,
+        $$
+            \int_{a}^{b} f(x) ~ dx = \lim_{c \to a^{+}} \int_{c}^{b} f(x) ~ dx .
+        $$
+        \item Suppose $f$ is continuous on $[a, b)$ with
+        $$
+            \lim_{x \to b^{-}} f(x) = \pm \infty.
+        $$
+        Then,
+        $$
+            \int_{a}^{b} f(x) ~ dx = \lim_{c \to b^{-}} \int_{a}^{c} f(x) ~ dx .
+        $$
+        \item Suppose $f$ is continuous on $[a, b]$ except at the interior point $p$ where $f$ is unbounded. Then
+        $$
+            \int_{a}^{b} f(x) ~ dx = \lim_{c \to p^{-}} \int_{a}^{c} f(x) ~ dx 
+                + \lim_{d \to p^{+}} \int_{d}^{b} f(x) ~ dx 
+        $$
+    \end{enumerate}
+    If the limits in cases 1-3 exist, then the improper integrals \textbf{converge}; otherwise, they \textbf{diverge}.
+\end{teo}
+
+\begin{ejer}
+    Evaluate the improper integral
+    $$
+        \int_{1}^{4} \frac{1}{\sqrt{x - 1}} ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Note the integrand is discontinuous at $x = 1$. We introduce a limit in order to arrive at a solution,
+    \begin{align*}
+        \int_{1}^{4} \frac{1}{\sqrt{x - 1}} ~ dx 
+            & = \lim_{a \to 1^{+}} \int_{a}^{4} \frac{1}{\sqrt{x - 1}} ~ dx \\
+            & = \lim_{a \to 1^{+}} \left. 2 \sqrt{x - 1} \right\rvert_{a}^{4} \\
+            & = \lim_{a \to 1^{+}} 2 \left( \sqrt{4 - 1} - \sqrt{a - 1} \right) \\
+            & = 2 \left( \sqrt{4 - 1} - \sqrt{1^{+} - 1} \right) \\
+            & = 2 \left( \sqrt{3} - \sqrt{0^{+}} \right) \\
+            & = 2\sqrt{3} ~ .
+    \end{align*}
+    Since the limit exists, the integral is \textbf{convergent}.
+\end{proof}
+
+\begin{ejer} $\skull$
+    Evaluate the improper integral
+    $$
+        \int_{0}^{5} \frac{1}{x - 3} ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution] 
+    Note the integrand is discontinuous at $x = 3$. We introduce limits in order to arrive at a solution,
+    \begin{align*}
+        \int_{0}^{5} \frac{1}{x - 3} ~ dx
+            & = \lim_{b \to 3^{-}} \int_{0}^{b} \frac{1}{x - 3} ~ dx 
+                + \lim_{a \to 3^{+}} \int_{a}^{5} \frac{1}{x - 3} ~ dx \\
+            & = \lim_{b \to 3^{-}} \left( \ln(|x - 3|) \right\rvert_{0}^{b} 
+                + \lim_{a \to 3^{+}} \left. \ln(|x - 3|) \right\rvert_{a}^{5} \\ 
+            & = \lim_{b \to 3^{-}} \left( \ln(|b - 3|) - \ln(|0 - 3|) \right)
+                + \lim_{a \to 3^{+}} \left( \ln(|5 - 3|) - \ln(|a - 3|) \right) \\
+            & = \left( \ln(|3^{-} - 3|) - \ln(3) \right)
+                +  \left( \ln(2) - \ln(|3^{+} - 3|) \right) \\
+            & = \left( \ln(0^{+}) - \ln(3) \right)
+                +  \left( \ln(2) - \ln(0^{+}) \right) ~ .
+    \end{align*}
+    Since at least one integral does not converge (e.g., for $x < 3$), we conclude that
+    $$
+        \int_{0}^{5} \frac{1}{x - 3} ~ dx
+    $$
+    is \textbf{divergent}.
+\end{proof}
+
+The last example is interesting. Can you spot why? If you need some motivation, solve
+$$
+    \int_{-1}^{1} \frac{1}{x} ~ dx = \lim_{\epsilon \to 0^{+}} \left( \int_{-1}^{-\epsilon} \frac{1}{x} ~ dx + \int_{\epsilon}^{1} \frac{1}{x} ~ dx \right)
+$$
+and
+$$
+    \int_{-1}^{1} \frac{1}{x} ~ dx = \lim_{\epsilon \to 0^{+}} \left( \int_{-1}^{-\epsilon} \frac{1}{x} ~ dx + \int_{2\epsilon}^{1} \frac{1}{x} ~ dx \right) ~ .
+$$ 
+\end{document}

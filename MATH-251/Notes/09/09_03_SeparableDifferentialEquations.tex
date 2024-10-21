@@ -1,0 +1,183 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Separable Differential Equations}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+\AtBeginEnvironment{proof}{\color{white}}
+
+%% 
+% https://www.emathhelp.net/en/calculators/algebra-2/partial-fraction-decomposition-calculator/
+
+\begin{document}
+
+\encabezado
+
+\section*{Separable Differential Equations}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Solve first-order separable differential equations (general and particular solutions).
+    \end{itemize}
+\end{mdframed}
+
+The most general first-order differential equation hast the form
+$$
+    y'(t) = F(t, y)
+$$
+where $F(t,y)$ is an expression that may involve both the independent variable $t$ and the unknown function $y$.
+We have a \textit{chance} of solving such an equation if it can be written in the form
+$$
+    g(y) y'(t) = h(t) ~ .
+$$
+An equation that can be written in this form is said to be \textbf{separable}. The solution can be obtained readily,
+\begin{align*}
+    g(y) \cdot y'(t) & = h(t) \\
+    \int g(y) \cdot y'(t) ~ dt & = \int h(t) ~ dt \\
+    \int g(y) ~ dy & = \int h(t) ~ dt ~ .
+\end{align*}
+The solution will depend on evaluating these integrals.
+
+\begin{ejer}
+    Determine if the following differential equation is separable
+    $$ 
+        y'(t) = y + t ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Note that 
+    \begin{align*}
+        & y'(t) = y + t \\
+        \implies & y'(t) - y = t
+    \end{align*}
+    where the left-hand side of the equation cannot be treated as the product of $g(y) y'(t)$ and thus is not separable.
+\end{proof}
+
+\begin{ejer}
+    Determine if the following differential equation is separable
+    $$ 
+        y'(x) = \mathrm{e}^{(x+y)}.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Note that 
+    \begin{align*}
+        & y'(x) = \mathrm{e}^{(x+y)}\\
+        \implies & y'(x) = \mathrm{e}^{(x)}\mathrm{e}^{(y)} \\ 
+        \implies & \mathrm{e}^{-y} y'(x) = \mathrm{e}^{(x)}
+    \end{align*}
+    shows the differential equation is separable.
+\end{proof}
+
+\begin{ejer}
+    Find the general solution of the differential equation
+    $$
+        \frac{dy}{dx} = \frac{x}{y} ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+                 & \frac{dy}{dx} = \frac{x}{y} \\
+        \implies & y \frac{dy}{dx} = x \\ 
+        \implies & \int y \frac{dy}{dx} ~ dx = \int x ~ dx \\ 
+        \implies & \int y ~ dy = \int x ~ dx \\ 
+        \implies & \frac{1}{2}y^{2} = \frac{1}{2} x^{2} + C \\ 
+        \implies & y = \pm \sqrt{x^{2} + C} ~ .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Find the general solution of the differential equation
+    $$
+        \frac{dy}{dx} = \frac{y}{x} ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+                 &  \frac{dy}{dx} = \frac{y}{x}  \\
+        \implies & \frac{1}{y} \frac{dy}{dx} = \frac{1}{x} \\ 
+        \implies & \int \frac{1}{y} \frac{dy}{dx} ~ dx = \int \frac{1}{x} ~ dx \\ 
+        \implies & \int \frac{1}{y} ~ dy = \int \frac{1}{x} ~ dx \\ 
+        \implies & \ln(|y|) = \ln(|x|) + \ln(C) \\
+        \implies & \mathrm{e}^{\ln(|y|)} = \mathrm{e}^{\ln(|x|) + \ln(C)} \\
+        \implies & |y| = \mathrm{e}^{\ln(|x|) + \ln(C)} \\
+        \implies & |y| = \mathrm{e}^{\ln(|x|)}\cdot\mathrm{e}^{\ln(C)} \\
+        \implies & y = C |x| ~ .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Find the general solution of the differential equation
+    $$
+        y' = 2yt
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+                 &  y' = 2yt  \\
+        \implies & \frac{1}{y}y' = 2t \\ 
+        \implies & \int \frac{1}{y} y' ~ dt = \int 2t ~ dt \\ 
+        \implies & \int \frac{1}{y} dy = \int 2t ~ dt \\ 
+        \implies & \ln(|y|) = t^{2} + \ln(C) \\ 
+        \implies & \mathrm{e}^{\ln(|y|)} = \mathrm{e}^{t^{2} + \ln(C)} \\ 
+        \implies & |y| = \mathrm{e}^{t^{2}} \mathrm{e}^{\ln(C)} \\ 
+        \implies & y = C \mathrm{e}^{t^{2}} ~ . 
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Solve the differential equation
+    $$
+        y' + xy = 100x
+    $$
+    with initial condition $y(0) = 90$. 
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+                 &  y' + xy = 100x  \\
+        \implies & y' = 100x - xy \\ 
+        \implies & y' = (100 - y)x \\
+        \implies & \int \frac{1}{(100 - y)} y' ~ dx = \int x ~ dx \\ 
+        \implies & \int \frac{1}{(100 - y)} ~ dy = \int x ~ dx \\ 
+        \implies & -\ln(|100 - y|) = \frac{1}{2}x^{2} + (-\ln(C)) \\ 
+        \implies & \ln(|100 - y|) = - \frac{1}{2}x^{2} + \ln(C) \\  
+        \implies & |100 - y| = - \frac{1}{2}x^{2} + \ln(C) \\  
+        \implies & |100 - y| = C \mathrm{e}^{-\sfrac{x^2}{2}} \\
+        \implies & 100 - y = \pm C \mathrm{e}^{-\sfrac{x^2}{2}} \\
+        \implies & y = 100 +  C \mathrm{e}^{-\sfrac{x^2}{2}} ~ .
+    \end{align*}
+\end{proof}
+
+\end{document}

@@ -1,0 +1,371 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usetikzlibrary{positioning}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Integration By Parts}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+\begin{document}
+
+\encabezado
+
+\section*{Integration By Parts}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Use integration by parts, when appropriate, to evaluate integrals.
+        \item Evaluate integrals requiring repeated integration by parts.
+        \item Solve application problems requiring integration by parts.
+    \end{itemize}
+\end{mdframed}
+
+In this section we cover a popular integration technique. The idea is that we can represent a difficult integral in terms of a simpler one. We start with a proof and then cover some examples.
+\begin{teo}[Integration by Parts]
+    Let $u(x), u'(x), v(x), v'(x)$ be continuous functions, then
+    $$
+        \int u(x) v'(x) ~ dx = u(x) v(x)  - \int u'(x) v(x) ~ dx.
+    $$
+\end{teo}
+\begin{proof}[Proof]
+    From the Product Rule, we get
+    \begin{align*}
+        \frac{d}{dx} \left( u(x)v(x) \right)
+            & = u(x) \left(\frac{d}{dx} v(x) \right) + \left( \frac{d}{dx} u(x) \right) v(x) \\
+        \implies
+        \int \left( \frac{d}{dx} u(x)v(x) \right) dx
+        & = \int \left( u(x) \left(\frac{d}{dx} v(x) \right) + \left( \frac{d}{dx} u(x) \right) v(x) \right) dx \\
+        & = \int u(x) \left(\frac{d}{dx} v(x) \right) dx + \int \left( \frac{d}{dx} u(x) \right) v(x) ~ dx \\
+        & = \int u(x) ~ dv + \int v(x) ~ du,
+    \end{align*}
+    $\therefore$
+    $$
+        \int u(x) v'(x) ~ dx = u(x) v(x)  - \int u'(x) v(x) ~ dx.
+    $$
+\end{proof}
+We will commonly use the shorthand notation
+$$
+    \int u ~ dv = uv - \int v ~ du . 
+$$
+The acronym \textbf{LIATE} is helpful for determining which function should be denoted by $u$. It is a way to memorize a hierarchy of functions (logarithmic, inverse trig, algebraic, trigonometric, and exponential). Please note there is no guarantee this approach always works.
+
+\begin{ejer}
+    Use integration by parts to evaluate the integral.
+    $$
+        \int x \mathrm{e}^{(3x)} ~ dx
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $u = x$ and $dv = \mathrm{e}^{(3x)} ~ dx$. We note that
+    \begin{align*}
+        u & = x \\ 
+        \implies du & = dx
+    \end{align*}
+    and
+    \begin{align*}     
+        v & = \frac{1}{3} \mathrm{e}^{(3x)} \\ 
+        \implies dv & = \mathrm{e}^{(3x)} ~ dx.
+    \end{align*}
+    Thus,
+    \begin{align*}
+        \int x \mathrm{e}^{(3x)} ~ dx 
+        & = \int u ~ dv \\
+        & =  uv - \int v ~ du \\
+        & = \frac{1}{3}x\mathrm{e}^{(3x)} - \frac{1}{3} \int \mathrm{e}^{(3x)} ~ dx \\ 
+        & = \frac{1}{3}x\mathrm{e}^{(3x)} - \frac{1}{9} \mathrm{e}^{(3x)} + C .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Use integration by parts to evaluate the integral.
+    $$
+        \int \frac{\ln(x)}{x^{2}} ~ dx
+    $$
+    Assume $x > 0$.
+\end{ejer}
+\begin{proof}[Solution]
+    Let $u = \ln(x)$ and $dv = \frac{1}{x^{2}} ~ dx$. We note that
+    \begin{align*}
+        u & = \ln(x) \\ 
+        \implies du & = \frac{1}{x} ~ dx
+    \end{align*}
+    and
+    \begin{align*}     
+        v & = -\frac{1}{x} \\ 
+        \implies dv & = \frac{1}{x^{2}} ~ dx.
+    \end{align*}
+    Thus,
+    \begin{align*}
+        \int \frac{\ln(x)}{x^{2}} ~ dx
+        & = -\frac{\ln(x)}{x} + \int \frac{1}{x^2}~dx \\
+        & =  -\frac{\ln(x)}{x} - \frac{1}{x} + C .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Use integration by parts to evaluate the integral.
+    $$
+        \int \arcsin(x) ~ dx
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $u = \arcsin(x)$ and $dv = dx$. We note that
+    \begin{align*}
+        u & = \arcsin(x) \\ 
+        \implies du & = \frac{1}{\sqrt{1-x^{2}}} ~ dx
+    \end{align*}
+    and
+    \begin{align*}     
+        v & = x \\ 
+        \implies dv & = dx.
+    \end{align*}
+    Thus,
+    \begin{align*}
+        \int \arcsin(x) ~ dx
+        & = x \arcsin(x) - \int \frac{x}{\sqrt{1 - x^{2}}}~dx \\
+        & =  x \arcsin(x) + \sqrt{1 - x^{2}} + C .
+    \end{align*}
+\end{proof}
+
+% \begin{ejer}
+%     Use integration by parts to evaluate the integral.
+%     $$
+%         \int \cos(\sqrt{5x}) ~ dx
+%     $$
+% \end{ejer}
+% \begin{proof}[Solution]
+%     Take $ u = \sqrt{5x}$. Then $du = \sqrt{5x} ~ dx$ and hence
+%     $$
+%         \int \cos(\sqrt{5x})~dx = \frac{\sqrt{5}}{5} \int \cos(u)~du
+%     $$
+%     % Let $u = \cos(\sqrt{5x})$ and $dv = dx$. We note that
+%     % \begin{align*}
+%     %     u & = \cos(\sqrt{5x}) \\ 
+%     %     \implies du & = -\frac{\sqrt{5}}{2}\frac{\sin(\sqrt{5x})}{\sqrt{x}} ~ dx
+%     % \end{align*}
+%     % and
+%     % \begin{align*}     
+%     %     v & = x \\ 
+%     %     \implies dv & = dx.
+%     % \end{align*}
+%     % Thus,
+%     % \begin{align*}
+%         % \int \cos(\sqrt{5x}) ~ dx
+%         % & = x \cos(\sqrt{5x}) + \frac{\sqrt{5}}{2} \int x \frac{\sin(\sqrt{5x})}{\sqrt{x}} ~ dx \\
+%         % & =  x \cos(\sqrt{5x}) + \frac{\sqrt{5}}{2} \int \sqrt{x} \sin(\sqrt{5x}) \\
+%         % & = 1
+%     % \end{align*}
+% \end{proof}
+
+\begin{ejer}
+    Use integration by parts to evaluate the integral.
+    $$
+        \int \mathrm{e}^{\sqrt{x}} ~ dx
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $u = \sqrt{x}$, then $du = \frac{1}{2\sqrt{x}}~dx$. Notice
+    $$
+    du = \frac{1}{2\sqrt{x}}~dx \implies 2u~du = dx
+    $$
+    Now,
+    \begin{align*}
+        \int \mathrm{e}^{\sqrt{x}} ~ dx
+            & = 2 \int u \mathrm{e}^{u} ~ du \\
+            & = 2 u\mathrm{e}^{u} - 2 \mathrm{e}^{u} + C \\
+            & = 2 \sqrt{x}\mathrm{e}^{\sqrt{x}} - 2 \mathrm{e}^{\sqrt{x}} + C .
+    \end{align*}
+\end{proof}
+
+% \begin{ejer}
+%     Compare
+%     $$
+%         \int x \sin(x) ~ dx
+%     $$
+%     with
+%     $$
+%         \int x \sin^{2}(x) ~ dx .
+%     $$
+% \end{ejer}
+% \begin{proof}[Solution]
+%     Test
+% \end{proof}
+
+%%%%
+% Add motiviation for repeated integration by parts, or just a statement.
+%%%%
+
+\begin{ejer}
+    Use repeated integration by parts to evaluate the integral
+    $$
+        \int x^{2} \sin(2x) ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $u = x^{2}$ and $dv = \sin(2x)~dx$. We have
+    \begin{align*}
+        \int x^{2} \sin(2x) ~ dx
+        & = -\frac{1}{2}x^{2}\cos(2x) + \int x \cos(2x)~dx .
+    \end{align*}
+    Now, let $ \hat{u} = x$ and $d\hat{v} = \cos(2x)~dx$ so that
+    \begin{align*}
+        \int x \cos(2x)~dx 
+            & = \frac{1}{2}x\sin(2x) - \frac{1}{2} \int \sin(2x)~dx \\
+            & = \frac{1}{2}x\sin(2x) + \frac{1}{4} \cos(2x) .
+    \end{align*}
+    Finally,
+    $$
+    \int x^{2} \sin(2x) ~ dx 
+    = -\frac{1}{2}x^{2}\cos(2x) + \frac{1}{2}x\sin(2x) + \frac{1}{4} \cos(2x).
+    $$
+\end{proof}
+
+%%%
+% Add tabular method, "there's a pattern..." and so on.
+%%%
+
+\begin{ejer}
+    Use the tabular method to evaluate the integral
+    $$
+        \int x^{3} \sin(2x) ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We let $u = x^{3}$ and $dv = \sin(2x) ~ dx$. With the tabular method we draw a table with two columns containing derivatives and integrals. We write derivatives of $u$ on the left column. In addition, we integrate $dv$ on the right column.
+
+    \begin{center}
+    \begin{tikzpicture}
+        % first column
+        \node (a) at (0,0) {$x^3$};
+        \node[below=5mm of a] (b) {$3x^{2}$};
+        \node[below=5mm of b] (c) {$6x$};
+        \node[below=5mm of c] (d) {$6$};
+        \node[below=5mm of d] (e) {$0$};
+        % second column
+        \node[right=1cm of a] (a1)  {$\sin(2x)$};
+        \node[below=6mm of a1] (b1) {$-\frac{1}{2}\cos(2x)$};
+        \node[below=5mm of b1] (c1) {$-\frac{1}{4}\sin(2x)$};
+        \node[below=5mm of c1] (d1) {$\frac{1}{8}\cos(2x)$};
+        \node[below=5mm of d1] (e1) {$\frac{1}{16}\sin(2x)$};
+        % arrows
+        \draw[->,blue!70] (a.320) -- (b1.west) node[black,pos=.65, above] {$+$};
+        \draw[->,blue!70] (b.320) -- (c1.west) node[black,pos=.65, above] {$-$};
+        \draw[->,blue!70] (c.320) -- (d1.west) node[black,pos=.65, above] {$+$};
+        \draw[->,blue!70] (d.320) -- (e1.west) node[black,pos=.65, above] {$-$};
+    \end{tikzpicture}
+    \end{center}
+
+    Using the table, we arrive at the answer by inspection. Namely,
+    $$
+        \int x^{3} \sin(2x) ~ dx
+        = -\frac{1}{2} x^{3} \cos(2x) + \frac{3}{4} x^{2} \sin(2x) + \frac{3}{4} x \cos(2x) - \frac{3}{8}\sin(2x)
+    $$
+    and we are done.
+\end{proof}
+
+%%%
+% Integrals of the form $e^{ax} \sin(bx)$ or $e^{ax} \cos(bx)$. 
+%%%
+
+\begin{ejer}
+    Evaluate
+    $$
+        \int \mathrm{e}^{(2x)} \sin(x) ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $u = \sin(x)$ and $dv = \mathrm{e}^{(2x)} ~ dx$. We have
+    \begin{align*}
+        \int \mathrm{e}^{(2x)} \sin(x) ~ dx
+        & = \frac{1}{2}\mathrm{e}^{(2x)}\sin(x) - \frac{1}{2} \left( \int \mathrm{e}^{(2x)} \cos(x) ~ dx \right) .
+    \end{align*}
+    Now take $\hat{u} = \cos(x)$ and $d\hat{v} = \mathrm{e}^{(2x)} ~ dx$ so that we get
+    \begin{align*}
+        \int \mathrm{e}^{(2x)} \cos(x) ~ dx 
+        & = \frac{1}{2}\mathrm{e}^{(2x)}\cos(x) + \frac{1}{2} \int \mathrm{e}^{(2x)}\sin(x) ~ dx ~ .
+    \end{align*}
+    Let
+    $$
+        I = \int \mathrm{e}^{(2x)} \sin(x) ~ dx
+    $$
+    which implies
+    \begin{align*}
+        I & = \frac{1}{2}\mathrm{e}^{(2x)}\sin(x) -\frac{1}{2} \left( \frac{1}{2}\mathrm{e}^{(2x)}\cos(x) + \frac{1}{2} I  \right) \\
+        \implies I & = \frac{1}{2}\mathrm{e}^{(2x)}\sin(x) - \frac{1}{4}\mathrm{e}^{(2x)}\cos(x) - \frac{1}{4} I  \\
+        \implies \left( 1 + \frac{1}{4} \right) I & = \frac{1}{2}\mathrm{e}^{(2x)}\sin(x) - \frac{1}{4}\mathrm{e}^{(2x)}\cos(x) \\
+        \implies I & = \frac{4}{5} \left( \frac{1}{2}\mathrm{e}^{(2x)}\sin(x) - \frac{1}{4}\mathrm{e}^{(2x)}\cos(x) \right)
+    \end{align*}
+    We've ignored the constant of integration thus far but include it in our final answer. Finally,
+    $$
+    \int \mathrm{e}^{(2x)} \sin(x) ~ dx = \frac{2}{5}\mathrm{e}^{(2x)}\sin(x) - \frac{1}{5}\mathrm{e}^{(2x)}\cos(x) + C .
+    $$
+\end{proof}
+
+\begin{ejer}
+    Evaluate the definite integral
+    $$
+        \int_{0}^{\frac{\pi}{4}} x \sin(2x) ~ dx ~ .
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Integration by parts shows
+    $$
+        \int_{0}^{\frac{\pi}{4}} x \sin(2x) ~ dx
+        = -\frac{1}{2}x\cos(2x) + \frac{1}{4} \sin(2x) + C.
+    $$
+    Since we are dealing with a definite integral, we have
+    \begin{align*}
+        \int_{0}^{\frac{\pi}{4}} x \sin(2x) ~ dx
+        & = \left. -\frac{1}{2}x\cos(2x) + \frac{1}{4} \sin(2x) \right\rvert_{0}^{\frac{\pi}{4}} \\
+        & = \frac{1}{4} ~ .
+        % & = \left( -\frac{1}{2}\frac{\pi}{4}\cos(2\frac{\pi}{4}) + \frac{1}{4} \sin(2\frac{\pi}{4}) \right) - \left( -\frac{1}{2}\cdot 0 \cdot \cos(2 \cdot x) + \frac{1}{4} \sin(2 \cdot 0) \right)
+    \end{align*}
+\end{proof}
+
+%%%
+% Applications
+%%%
+\begin{ejer}
+    A drug taken orally is absorbed into the bloodstream at the rate of $t\mathrm{e}^{(-\frac{2}{5}t)}$ milligrams per hour,
+    where t is the number of hours since the drug was taken. Find the total amount of drug
+    absorbed during the first 6 hours.
+\end{ejer}
+\begin{proof}[Solution]
+    Define $h'(t) = t\mathrm{e}^{(-\frac{2}{5}t)}$, we wish to obtain $h(t)$ so that we may calculate $h(6) - h(0)$ to find the total amount of drug absorbed during the first six hours. Integrating $h'(t)$ produces
+    \begin{align*}
+        \int_{0}^{6} h'(t) dt & = \int_{0}^{6} t\mathrm{e}^{(-\frac{2}{5}t)} ~ dt \\
+        & = \left. -\frac{5}{2}t\mathrm{e}^{(-\frac{2}{5}t)} - \frac{25}{4} \mathrm{e}^{(-\frac{2}{5}t)} \right\rvert_{0}^{6} \\
+        & = -\frac{85}{4}\mathrm{e}^{(-\frac{12}{5})} + \frac{25}{4} ~ .
+    \end{align*}
+    We take an approximation rounded to two decimal places to produce a sensible result. We have that $4.32$ milligrams are absorbed during the first six hours after taking the drug.
+\end{proof}
+\end{document}

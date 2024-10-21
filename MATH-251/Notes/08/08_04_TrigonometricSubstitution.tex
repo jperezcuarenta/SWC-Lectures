@@ -1,0 +1,272 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Trigonometric Substitution}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+\begin{document}
+
+\encabezado
+
+\section*{Trigonometric Substitution}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Evaluate integrals using the method of trigonometric substitution.
+    \end{itemize}
+\end{mdframed}
+
+% https://math.stackexchange.com/questions/153468/how-does-trigonometric-substitution-work
+In this section we will review methods to tackle integrals akin to
+$$
+    \int \frac{\sqrt{9 - x^{2}}}{x^{2}} ~ dx ~ .
+$$
+The solution involves a specific type of substitution.
+We will \textbf{invent} a new variable $\theta$ that relates to $x$ in a way that lets us use trigonometric identities to solve our problem.
+
+We have
+$$
+    x = 3\sin(\theta)
+$$
+where $x$ is a function of $\theta$. Differentiating we get
+$$
+    \frac{dx}{d\theta}=3\cos(\theta) \implies dx=3\cos(\theta) d\theta ~ .
+$$
+So rewriting the integral in terms of $\theta$, we get
+$$
+    \int \frac {\sqrt{9-9\sin^2(\theta)}}{9\sin^2(\theta)}\cdot3\cos(\theta)d\theta ~ .
+$$
+Now we can use trigonometric identities to evaluate this new integral and get rid of the troublesome square root (which is the reason we bothered with this substitution in the first place)
+\begin{align*}
+    \int \frac {\sqrt{9\cos^2(\theta)}}{9\sin^2(\theta)}\cdot3\cos(\theta)d\theta = \int \frac {\cos^2(\theta)}{\sin^2(\theta)}d\theta ~ .
+\end{align*}
+Expanding the numerator as $1 - \sin^{2}(\theta)$ and evaluating we get
+$$
+    \int \csc^2(\theta)-1 d\theta = -\cot(\theta)-\theta + C ~ .
+$$
+But our integral was in terms of $x$. While this substitution was helpful, we're only halfway done, since we don't know what the expression looks like in our original variable.
+Note that
+$$
+    \cot(\theta)=\frac{\cos(\theta)}{\sin(\theta)}=\frac{\sqrt{(1-\sin^2(\theta))}}{\sin(\theta)}
+$$
+and thus
+\begin{align*}
+    -\cot(\theta)-\theta + C
+    & = -\frac{\sqrt{1-\frac {x^2} 9}}{\frac x 3} - \theta + C \\
+    & = -\frac{\sqrt{9-x^2}}{x}-\sin^{-1}\left(\frac{x}{3}\right) + C
+\end{align*}
+$\therefore$
+$$
+    \int \frac{\sqrt{9 - x^{2}}}{x^{2}} ~ dx = -\frac{\sqrt{9-x^2}}{x}-\sin^{-1}\left(\frac{x}{3}\right) + C ~ .
+$$
+
+In general,
+\begin{itemize}
+    \item if the integral contains $a^2 - x^2$ use
+    $$
+        x = a\sin(\theta) \text{ where } -\frac{\pi}{2} \leq \theta \leq \frac{\pi}{2} \text{ and } |x| \leq a,
+    $$
+    \item else if the integral contains $a^2 + x^2$ use
+    $$
+        x = a\tan(\theta) \text{ where } -\frac{\pi}{2} < \theta < \frac{\pi}{2},
+    $$
+    \item else if the integral contains $x^2 - a^2$ use
+    $$
+        x = a\sec(\theta) \text{ where } x \geq a \implies 0 \leq \theta < \frac{\pi}{2} \text{ and } x \leq -a \implies \frac{\pi}{2} < \theta < \pi .
+    $$
+\end{itemize}
+
+\begin{ejer}
+    Evaluate 
+    $$
+        \int \sqrt{1 - x^{2}}~dx.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Since the expression $1 - x^{2}$ is of the form $a^{2} - x^{2}$ with $a = 1$, we let
+    $$
+        x = a \cdot \sin(\theta) \implies x = \sin(\theta)
+    $$
+    and note that
+    $$
+        \frac{dx}{d\theta} = \cos(\theta) \implies dx = \cos(\theta) ~ d\theta  ~.
+    $$
+    We have
+    \begin{align*}
+        \int \sqrt{1 - x^{2}}~dx
+        & = \int \sqrt{1 - \sin^{2}(\theta)} \cos(\theta) ~ d\theta \\
+        & = \int \sqrt{\cos^{2}(\theta)} \cos(\theta) ~ d\theta \\
+        & = \int \cos^{2}(\theta) ~ d\theta \\
+        & = \int \frac{1}{2} \left( 1 + \cos(2\theta) \right) ~ d\theta \\
+        & = \frac{1}{2} \left( \theta + \frac{1}{2} \sin(2\theta) \right) + C \\
+        & = \frac{1}{2} \left( \arcsin(x) + \frac{1}{2} \sin(2\arcsin(x)) \right) + C \\
+        & = \frac{1}{2} \arcsin(x) + \frac{1}{4} \sin(2\arcsin(x)) + C ~.
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate
+    $$
+        \int \frac{1}{x^{2}\sqrt{4 - x^2}} ~ dx.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Since the expression $4 - x^{2}$ is of the form $a^{2} - x^{2}$ with $a = 2$, we let
+    $$
+        x = a \cdot \sin(\theta) \implies x = 2\sin(\theta)
+    $$
+    and note that
+    $$
+        \frac{dx}{d\theta} = 2\cos(\theta) \implies dx = 2\cos(\theta) ~ d\theta  ~.
+    $$
+    We have
+    \begin{align*}
+        \int \frac{1}{x^{2}\sqrt{4 - x^2}} ~ dx
+        & = \int \frac{2\cos(\theta)}{4\sin^{2}(\theta)\sqrt{4 - 4\sin^{2}(\theta)}} ~ d\theta \\
+        & = \frac{1}{4} \int \frac{1}{\sin^{2}(\theta)} ~ d\theta \\
+        & = \frac{1}{4} \int \csc^{2}(\theta) ~ d\theta \\
+        & = -\frac{1}{4} \cot(\theta) + C \\
+        & = -\frac{\sqrt{4 - x^2}}{4x} + C .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate
+    $$
+        \int \frac{1}{9x^2 + 4} ~ dx.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    First we rewrite the integrand
+    $$
+        \int \frac{1}{9x^2 + 4} ~ dx = \int \frac{1}{9} \frac{1}{\left( x^{2} + \frac{4}{9}\right)} ~ dx ~ .
+    $$
+    Since the expression $x^{2} + \frac{4}{9}$ is of the form $a^{2} + x^{2}$ with $a = \frac{2}{3}$, we let
+    $$
+        x = a \cdot \tan(\theta) \implies x = \frac{2}{3}\tan(\theta)
+    $$
+    and note that
+    $$
+        \frac{dx}{d\theta} = \frac{2}{3}\sec^{2}(\theta) \implies dx = \frac{2}{3}\sec^{2}(\theta) ~ d\theta  ~.
+    $$
+    We have
+    \begin{align*}
+        \int \frac{1}{9} \frac{1}{\left( x^{2} + \frac{4}{9}\right)} ~ dx
+        & = \frac{1}{9} \int \frac{2}{3}\frac{\sec^{2}(\theta)}{\left( \frac{4}{9}\tan^2(\theta) + \frac{4}{9} \right)} ~ d\theta \\
+        & = \frac{1}{9} \int \frac{2}{3} \cdot \frac{9}{4} \cdot \frac{\sec^{2}(\theta)}{\tan^{2}(\theta) + 1} ~ d\theta \\
+        & = \frac{1}{6} \int \frac{\sec^{2}(\theta)}{\tan^{2}(\theta) + 1} ~ d\theta \\
+        & = \frac{1}{6} \int 1 ~ d\theta \\
+        & = \frac{1}{6} \theta + C \\
+        & = \frac{1}{6} \arctan\left( \frac{3x}{2} \right) + C ~.
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate
+    $$
+        \int_{0}^{1} \frac{1}{(x^{2} + 1)^{\frac{3}{2}}} ~ dx.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Since the expression $x^{2} + 1$ is of the form $a^{2} + x^{2}$ with $a = 1$, we let
+    $$
+        x = a \cdot \tan(\theta) \implies x = \tan(\theta)
+    $$
+    and note that
+    $$
+        \frac{dx}{d\theta} = \sec^{2}(\theta) \implies dx = \sec^{2}(\theta) ~ d\theta  ~.
+    $$
+    We have
+    \begin{align*}
+        \int \frac{1}{(x^{2} + 1)^{\frac{3}{2}}} ~ dx
+        & = \int \frac{\sec^{2}(\theta)}{(1 + \tan^{2}(\theta))^{\frac{3}{2}}} ~ d\theta \\
+        & = \int \frac{\sec^{2}(\theta)}{(\sec^{2}(\theta))^{\frac{3}{2}}} ~ d\theta \\
+        & = \int \frac{\sec^{2}(\theta)}{\sec^{3}(\theta)} ~ d\theta \\
+        & = \int \frac{1}{\sec(\theta)} ~ d\theta \\
+        & = \int \cos(\theta) ~ d\theta \\
+        & = \sin(\theta) + C \\
+        & = \sin(\arctan(\theta)) + C \\
+        & = \frac{x}{\sqrt{x^{2} + 1}} + C ~ .
+    \end{align*}
+    Since we have a definite integral, we omit the constant of integration and apply the bounds accordingly
+    \begin{align*}
+        \int_{0}^{1} \frac{1}{(x^{2} + 1)^{\frac{3}{2}}} ~ dx 
+        & = \left.  \frac{x}{\sqrt{x^{2} + 1}} \right\rvert_{0}^{1} \\
+        & = \frac{1}{\sqrt{2}} \\
+        & = \frac{\sqrt{2}}{2} ~ .
+    \end{align*}
+\end{proof}
+
+\begin{ejer}
+    Evaluate
+    $$
+        \int_{0}^{1} \frac{x}{(x^{2} + 1)^{\frac{3}{2}}} ~ dx.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Since the expression $x^{2} + 1$ is of the form $a^{2} + x^{2}$ with $a = 1$, we let
+    $$
+        x = a \cdot \tan(\theta) \implies x = \tan(\theta)
+    $$
+    and note that
+    $$
+        \frac{dx}{d\theta} = \sec^{2}(\theta) \implies dx = \sec^{2}(\theta) ~ d\theta  ~.
+    $$
+    We have
+    \begin{align*}
+        \int \frac{x}{(x^{2} + 1)^{\frac{3}{2}}} ~ dx
+        & = \int \frac{\tan(\theta) \sec^{2}(\theta)}{(1 + \tan^{2}(\theta))^{\frac{3}{2}}} ~ d\theta \\
+        & = \int \frac{\tan(\theta) \sec^{2}(\theta)}{(\sec^{2}(\theta))^{\frac{3}{2}}} ~ d\theta \\
+        & = \int \frac{\tan(\theta) \sec^{2}(\theta)}{\sec^{3}(\theta)} ~ d\theta \\
+        & = \int \frac{\tan(\theta)}{\sec(\theta)} ~ d\theta \\
+        & = \int \sin(\theta) ~ d\theta \\
+        & = - \cos(\theta) + C \\
+        & = - \frac{1}{\sqrt{1 + x^2}} + C
+    \end{align*}
+    Since we have a definite integral, we omit the constant of integration and apply the bounds accordingly
+    \begin{align*}
+        \int_{0}^{1} \frac{x}{(x^{2} + 1)^{\frac{3}{2}}} ~ dx
+        & = \left.   - \frac{1}{\sqrt{1 + x^2}} \right\rvert_{0}^{1} \\
+        & = 1 - \frac{1}{\sqrt{2}} \\
+        & = \frac{2 - \sqrt{2}}{2} ~ .
+    \end{align*}
+\end{proof}
+
+% \begin{ejer}
+%     Evaluate
+%     $$
+%         \int \frac{1}{4 + 9x^2} ~ dx.
+%     $$
+% \end{ejer}
+
+\end{document}
