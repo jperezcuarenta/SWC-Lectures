@@ -8,6 +8,14 @@
 *.grades
 *.vrb
 *.fdb_latexmk
+*.flsx
 *.fls
 .vscode/*
 .resources/*
+MATH-130/Exams/*
+MATH-130/Notes/*.pdf
+MATH-251/Exams/*
+MATH-251/Quizzes/*
+MATH-251/Notes/*/*.pdf
+MATH-251/Notes/*/*.sty
+MATH-251/Notes/*/*.cls

@@ -1,0 +1,278 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Infinite Series}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+\begin{document}
+
+\encabezado
+
+\section*{Infinite Series}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Explain the meaning of the sum of an infinite series.
+        \item Calculate the sum of a geometric series.
+        \item Evaluate a telescoping series.
+    \end{itemize}
+\end{mdframed}
+
+An infinite series is a sum of infinitely many terms and is written in the form
+$$
+    \sum_{n = 1}^{\infty} a_n = a_1 + a_2 + a_3 + \ldots.
+$$
+\textbf{What does it mean to add infinitely many terms?}
+
+\begin{ejer}
+    $\skull$ Find a value tied to the infinite sum
+    $$
+        S_{a} = 1 - 1 + 1 - 1 + \ldots.
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Consider the sequence
+    $$
+        \{ a_n \}_{n=1}^{\infty} = \{(-1)^{n+1}\}_{n=1}^{\infty} = \{1, -1, 1, -1, 1, \ldots \}.
+    $$
+    We have
+    \begin{align*}
+        S_{a} & = a_1 + a_2 + a_3 + a_4 + \ldots \\
+        \implies S_{a} & = 1 - 1 + 1 - 1 + \ldots \\
+        \implies S_{a} & = 1 - (1 + 1 - 1 + \ldots) \\
+        \implies S_{a} & = 1 - S_{a} \\
+        \implies 2S_{a} & = 1 \\
+        \implies S_{a} & = \frac{1}{2}.
+    \end{align*}
+    Hence,
+    $$
+        1 - 1 + 1 - 1 + \ldots = \frac{1}{2}.
+    $$
+\end{proof}
+
+\begin{ejer}
+    $\skull$ Find a value tied to the infinite sum
+    $$
+        S_{b} = 1 - 2 + 3 -4 + \ldots.
+    $$
+    Use the value obtained for $S_a$ in Example 1.
+\end{ejer}
+\begin{proof}[Solution]
+    Take the sequence
+    $$
+        \{ b_n \}_{n=1}^{\infty} = \{(-1)^{n+1} n\}_{n=1}^{\infty} = \{1, -2, 3, -4, 5, \ldots \}.
+    $$
+    Notice that
+    \begin{align*}
+        S_{b} & = b_1 + b_2 + b_3 + b_4 \ldots \\
+        S_{b} & = 1 -2 + 3 - 4 \ldots \\
+        S_{b} & = 0 + 1 - 2 + 3 \ldots \\
+        \implies 2S_{b} & = 1 -1 + 1 - 1 \ldots \\ 
+        \implies 2S_{b} & = S_{a} \\
+        \implies S_{b} & = \frac{1}{2}S_{a} \\
+        \implies S_{b} & = \frac{1}{4}.
+    \end{align*}
+    Thus,
+    $$
+        1 -2 + 3 - 4 + \ldots = \frac{1}{4}.
+    $$
+\end{proof}
+
+\begin{ejer}
+    $\skull$ Find a value tied to the infinite sum
+    $$
+        S_{c} = 1 + 2 + 3 + 4 + \ldots.
+    $$
+    Use the value obtained for $S_b$ in Example 2.
+\end{ejer}
+\begin{proof}[Solution]
+    Define
+    $$
+        \{c_n\}_{n=1}^{\infty} = \{n\}_{n=1}^{\infty} = \{1, 2, 3, 4, \ldots\}.
+    $$
+    Now,
+    \begin{align*}
+        S_{c} & = c_1 + c_2 + c_3 + c_4 + \ldots \\
+        \implies S_{c} & = 1 + 2 + 3 + 4 + \ldots.
+    \end{align*}
+    On the other hand,
+    \begin{align*}
+        S_{b} & = b_1 + b_2 + b_3 + b_4 \ldots \\
+        \implies S_{b} & = 1 - 2 + 3 - 4 + \ldots.
+    \end{align*}
+    Now we compute $S_{c} - S_{b}$,
+    \begin{align*}
+        S_{c} - S_{b} & =  (1 - 1) + (2 + 2) + (3 - 3) + (4 + 4) + \ldots \\
+        \implies S_{c} - S_{b} & = 4(1 + 2 + 3 + 4 + \ldots) \\
+        \implies S_{c} - S_{b} & = 4S_{c} \\
+        \implies 3S_{c} & = -\frac{1}{4} \\
+        \implies S_{c} & = -\frac{1}{12} .
+    \end{align*}
+    Therefore,
+    $$
+        1 + 2 + 3 + 4 + \ldots = -\frac{1}{12}.
+    $$
+\end{proof}
+
+The moral of the story is we need to be careful when adding terms from an infinite sequence.
+\begin{defi}[Infinite Series]
+    Given a sequence $\{a_1, a_2, a_3, \ldots \}$, the sum of its terms
+    $$
+        a_1+a_2+a_3+\ldots = \sum_{k=1}^{\infty} a_k
+    $$
+    is called an \textbf{infinite series}. The \textbf{sequence of partial sums} $\{S_n\}$ associated with this series has the terms
+    \begin{align*}
+        S_1 & = a_1 \\
+        S_2 & = a_1 + a _2 \\
+        S_3 & = a_1 + a_2 + a_3 \\
+        & \vdots \\
+        S_n & = a_1 + a_2 + a_3 + \ldots + a_2 = \sum_{k=1}^{n} a_k
+    \end{align*}
+    for $n \in \mathbb{N}$. If the sequence of partial sums $\{S_n\}$ has a limit $L$, the infinite series \textbf{converges} to that limit, and we write
+    $$
+        \sum_{k=1}^{\infty} a_k = \lim_{n \to \infty} \sum_{k=1}^{n} a_k = \lim_{n \to \infty} S_n = L.
+    $$
+    If the sequence of partial sums diverges, the infinite series also \textbf{diverges}.
+\end{defi}
+\begin{ejer}
+    Show that the infinite series 
+    $$
+        \sum_{k=1}^\infty \frac{1}{2^k}
+    $$ converges.
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    \begin{align*}
+        S_1 & = \frac{1}{2} \\
+        S_2 & = \frac{1}{2} + \frac{1}{4} = \frac{3}{4} \\
+        S_3 & = \frac{1}{2} + \frac{1}{4} + \frac{1}{8}  = \frac{7}{8} \\
+        S_4 & = \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} = \frac{15}{16} \\
+        & \vdots \\
+        S_n & = \frac{2^{n} - 1}{2^{n}} = 1 - \frac{1}{2^{n}}.
+    \end{align*}
+    Taking the limit, we get
+    $$
+        \lim_{n \to \infty} S_n = \lim_{n \to \infty} 1 - \frac{1}{2^{n}} = 1.
+    $$
+    Therefore, the infinite series converges and
+    $$
+        \sum_{k=1}^\infty \frac{1}{2^k} = 1.
+    $$
+\end{proof}
+
+\begin{defi}[Geometric Series]
+    A \textbf{geometric series} with ratio $r \in \mathbb{R}$ and $a \neq 0$ is a series of the form
+    $$
+        \sum_{k=0}^{n-1}ar^k = a (1 + r + r^2 + r^3 + \ldots + r^{n-1}).
+    $$
+    An \textbf{infinite geometric series} is of the form
+    $$
+        \sum_{k=0}^{\infty}ar^k = a (1 + r + r^2 + r^3 + \ldots ).
+    $$
+\end{defi}
+
+\begin{teo}[Convergence of Geometric Series]
+    Let $a \neq 0$ and $r$ be real numbers. If $|r| < 1$, then
+    $$
+        \sum_{k=0}^{\infty} a r^{k} = \frac{a}{1 - r}.
+    $$
+    If $|r| \geq 1$, then the series diverges.
+\end{teo}
+
+\begin{ejer}
+    Show that the infinite series
+    $$
+        \sum_{k=0}^{\infty} \mathrm{e}^{-k}
+    $$
+    is a geometric series and find its sum if it is convergent.
+\end{ejer}
+\begin{proof}[Solution]
+    
+\end{proof}
+
+\begin{ejer}
+    Show that the infinite series
+    $$
+        \sum_{k=0}^{\infty} 3\left(\frac{5}{2}\right)^{k}
+    $$
+    is a geometric series and find its sum if it is convergent.
+\end{ejer}
+\begin{proof}[Solution]
+    
+\end{proof}
+
+\begin{ejer}
+    Show that the infinite series
+    $$
+        \sum_{k=1}^{\infty} 5 \left( - \frac{3}{4} \right)^{k}
+    $$
+    is a geometric series and find its sum if it is convergent.
+\end{ejer}
+\begin{proof}[Solution]
+    
+\end{proof}
+
+\begin{ejer}
+    Show that the infinite series
+    $$
+        \sum_{k=3}^{\infty} 9 \left( \frac{3}{7} \right)^{k}
+    $$
+    is a geometric series and find its sum if it is convergent.
+\end{ejer}
+\begin{proof}[Solution]
+    
+\end{proof}
+
+\begin{ejer}
+    
+\end{ejer}
+
+\begin{teo}[Properties of Convergent Series]
+    \begin{enumerate}
+        \item Suppose $\sum a_k$ converges to $A$ and $c$ is a real number. The series $\sum c a_k$ converges, and $\sum c a_k = c \sum a_k = c A$. 
+        \item Suppose $\sum a_k$ diverges. Then $\sum c a_k$ also diverges, for any real number $c \neq 0$.
+        \item Suppose $\sum a_k$ converges to $A$ and $\sum b_k$ converges to $B$. The series $\sum (a_k \pm b_k)$ converges, and $\sum(a_k \pm b_k) = \sum a_k \pm \sum b_k = A \pm B$.
+        \item Suppose $\sum a_k$ diverges and $\sum b_k$ converges, Then $\sum (a_k \pm b_k)$ diverges.
+        \item If $M$ is a positive integer, then
+        $$
+            \sum_{k=1}^{\infty} a_k
+        $$
+        and
+        $$
+            \sum_{k=M}^{\infty} a_k
+        $$
+        either both converge or both diverge. In general, whether a series converges does not depend on a finite number of terms added to or removed from the series. However, the value of a convergent series does change if nonzero terms are added or removed.
+    \end{enumerate}
+\end{teo}
+
+\end{document}
