@@ -1,0 +1,299 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Infinite Series}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+\begin{document}
+
+\encabezado
+
+\section*{Infinite Series}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Apply the Divergence Test.
+        \item Apply the Integral Test.
+        \item Apply the $p$-series Test.
+    \end{itemize}
+\end{mdframed}
+
+One of the simplest tests determines whether an infinite series diverges.
+\begin{teo}
+    If $\sum a_k$ converges, then $\lim_{k \to \infty} a_k = 0$. Equivalently, if $\lim_{k \to \infty} a_k \neq 0$, then the series diverges.
+\end{teo}
+
+\begin{ejer}
+    Determine if the following series is divergent.
+    $$
+        \sum_{k=1}^{\infty} \left( \frac{2n^2 + 1}{3n^2 - 1} \right)
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    $$
+        \lim_{k \to \infty} a_k = \lim_{k \to \infty} \frac{2k^2+1}{3k^2-1} = \frac{2}{3} \neq 0.
+    $$
+    Therefore, the infinite series
+    $$
+        \sum_{k=1}^{\infty} \left( \frac{2n^2 + 1}{3n^2 - 1} \right)
+    $$
+    is divergent.
+\end{proof}
+
+\begin{ejer}
+    Determine if the following series is divergent.
+    $$
+        \sum_{k=1}^{\infty} \mathrm{e}^{k^2}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    $$
+        \lim_{k \to \infty} a_k = \lim_{k \to \infty} \mathrm{e}^{k^2} = \infty \neq 0.
+    $$
+    Therefore, the infinite series
+    $$
+        \sum_{k=1}^{\infty} \mathrm{e}^{k^2}
+    $$
+    is divergent.
+\end{proof}
+
+\begin{ejer}
+    Determine if the following series is divergent.
+    $$
+        \sum_{k=1}^{\infty} \left( \frac{1}{5k^2 + 3} \right)
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We have
+    $$
+        \lim_{k \to \infty} a_k = \lim_{k \to \infty} \left( \frac{1}{5k^2 + 3} \right) = 0.
+    $$
+    Therefore, the test is inconclusive.
+\end{proof}
+
+\begin{teo}[Integral Test]
+    Suppose $f$ is a continuous, positive, decreasing function, for $x \geq 1$, and let
+    $$
+        a_k = f(k),
+    $$
+    for $k \in \mathbb{N}$. Then
+    $$
+        \sum_{k=1}^{\infty} a_k \text{ and } \int_{1}^{\infty} f(x) dx
+    $$
+    either both converge or both diverge. In the case of convergence, the value of the integral is not equal to the value of series.
+\end{teo}
+
+\begin{ejer}
+    Use the integral test to determine whether the given series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $f(x) = \frac{1}{x}$ be defined for $x \in \mathbb{R}$. We check three items.
+    \begin{enumerate}
+        \item Continuity \\
+        We have that $f(x)$ is continuous over $[1, \infty)$.
+        \item Positivity \\
+        If $x \geq 1$ then $f(x) = \frac{1}{x} > 0$.
+        \item Decreasing function \\
+        We see that $f'(x) = -\frac{1}{x^2}$ and if $x \geq 1$ then $f'(x) < 0$ which implies $f$ is decreasing over $[1, \infty)$.
+    \end{enumerate}
+    Now we evaluate
+    \begin{align*}
+        \int_{1}^{\infty} f(x) ~ dx 
+            & = \lim_{b \to \infty} \int_{1}^{b} \frac{1}{x} ~ dx  \\
+            & = \lim_{b \to \infty} \left. \ln(x) \right\rvert_{1}^{b} \\
+            & = \lim_{b \to \infty} \ln(b) - \ln(1) \\
+            & = \infty.
+    \end{align*}
+    Since
+    $$
+        \int_{1}^{\infty} \frac{1}{x} ~ dx
+    $$
+    is divergent, we conclude
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k}
+    $$
+    is also divergent.
+\end{proof}
+
+\begin{ejer}
+    Use the integral test to determine whether the given series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k^2}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $f(x) = \frac{1}{x^2}$ be defined for $x \in \mathbb{R}$. We check three items.
+    \begin{enumerate}
+        \item Continuity \\
+        We have that $f(x)$ is continuous over $[1, \infty)$.
+        \item Positivity \\
+        If $x \geq 1$ then $f(x) = \frac{1}{x^2} > 0$.
+        \item Decreasing function \\
+        We see that $f'(x) = -\frac{2}{x^3}$ and if $x \geq 1$ then $f'(x) < 0$ which implies $f$ is decreasing over $[1, \infty)$.
+    \end{enumerate}
+    Now we evaluate
+    \begin{align*}
+        \int_{1}^{\infty} f(x) ~ dx 
+            & = \lim_{b \to \infty} \int_{1}^{b} \frac{1}{x^2} ~ dx  \\
+            & = \lim_{b \to \infty} \left. -\frac{1}{x} \right\rvert_{1}^{b} \\
+            & = \lim_{b \to \infty} -\frac{1}{b} + \frac{1}{1} \\
+            & = 1.
+    \end{align*}
+    Since
+    $$
+        \int_{1}^{\infty} \frac{1}{x^2} ~ dx
+    $$
+    is convergent, we conclude
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k^2}
+    $$
+    is also convergent.
+\end{proof}
+
+\begin{ejer}
+    Use the integral test to determine whether the given series converges or diverges.
+    $$
+        \sum_{k=2}^{\infty} \frac{\ln(k)}{k}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $f(x) = \frac{\ln(x)}{x}$ be defined for $x \in \mathbb{R}$. We check three items.
+    \begin{enumerate}
+        \item Continuity \\
+        We have that $f(x)$ is continuous over $[2, \infty)$.
+        \item Positivity \\
+        If $x \geq 2$ then $f(x) = \frac{\ln(x)}{x} > 0$ (since $f$ is the ratio of two positive values).
+        \item Decreasing function \\
+        We see that
+        $$
+            f'(x) = \frac{1-\ln(x)}{x^2}
+        $$
+        which has critical points for $x_c \in \{0, \mathrm{e}\}$. Now,
+        \begin{align*}
+            f'(\mathrm{e}^2)
+                & = \frac{(1 - \ln(\mathrm{e}^{2}))}{(\mathrm{e}^{2})^2} \\
+                & = -\frac{1}{\mathrm{e}^{4}} \\
+                & < 0
+        \end{align*}
+        shows that $f$ is decreasing over $[\mathrm{e}, \infty)$.
+    \end{enumerate}
+    Thus,
+    \begin{align*}
+        \int_{\mathrm{e}}^{\infty} f(x) ~ dx 
+            & = \lim_{b \to \infty} \int_{\mathrm{e}}^{b} \frac{\ln(x)}{x} ~ dx  \\
+            & = \lim_{b \to \infty} \left. \frac{1}{2} \left( \ln(x) \right)^{2} \right\rvert_{\mathrm{e}}^{b} \\
+            & = \lim_{b \to \infty} \frac{1}{2} \left( \ln(b)^{2} - \ln(\mathrm{e})^2 \right) \\
+            & = \infty.
+    \end{align*}
+    Since
+    $$
+        \int_{\mathrm{e}}^{\infty} \frac{\ln(x)}{x} ~ dx
+    $$
+    is divergent, we conclude
+    $$
+        \sum_{k=2}^{\infty} \frac{\ln(k)}{k}
+    $$
+    is also divergent.
+\end{proof}
+
+\begin{teo}[Convergence of the $p$-series]
+    The \textbf{$p$-series}
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k^{p}}
+    $$
+    converges for $p > 1$ and diverges for $p \leq 1$.
+\end{teo}
+
+\begin{ejer}
+    Determine whether the series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k^2}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    The infinite series is convergent since it is a $p$-series with
+    $$
+        p = 2 > 1.
+    $$
+\end{proof}
+
+\begin{ejer}
+    Determine whether the series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{\sqrt{k}}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    The infinite series is divergent since it is a $p$-series with
+    $$
+        p = \frac{1}{2} \leq 1.
+    $$
+\end{proof}
+
+\begin{ejer}
+    Determine whether the series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} k^{-1.001}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    The infinite series is convergent since it is a $p$-series with
+    $$
+        p = 1.001 > 1.
+    $$
+\end{proof}
+
+\begin{ejer}
+    Determine whether the series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{\sqrt[3]{k^2}}{5\sqrt[4]{k^3}}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We rewrite the infinite series
+    \begin{align*}
+        \sum_{k=1}^{\infty} \frac{\sqrt[3]{k^2}}{5\sqrt[4]{k^3}}
+            & = \sum_{k=1}^{\infty} \frac{1}{5} \frac{k^{\frac{2}{3}}}{k^{\frac{3}{4}}} \\
+            & = \sum_{k=1}^{\infty} \frac{1}{5} \frac{1}{k^\frac{1}{12}} \\
+    \end{align*}
+    The infinite series is divergent since it is a $p$-series with 
+    $$
+        p = \frac{1}{12} \leq 1.
+    $$
+\end{proof}
+\end{document}
