@@ -1,0 +1,219 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Alternating Series}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+\begin{document}
+
+\encabezado
+\section*{Alternating Series}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Use the Alternating Series Test to determine whether an alternating series converges (absolutely or conditionally) or diverges.
+        \item Use the Alternating Series Remainder Theorem to approximate the sum of an alternating series.
+    \end{itemize}
+\end{mdframed}
+
+\begin{teo}[Alternating Series Test]
+    The alternating series
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} a_k
+    $$
+    converges provided
+    \begin{enumerate}
+        \item the terms of the series are nonincreasing in magnitude, i.e.,
+        $$
+            0 < a_{k+1} \leq a_{k}
+        $$
+        for $k$ greater than some $N \in \mathbb{N}$ and,
+        \item the limit 
+        $$
+            \lim_{k \to \infty} a_k = 0
+        $$
+        is satisfied.
+    \end{enumerate}
+\end{teo}
+
+\begin{ejer}
+    Determine whether the series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{k}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \mathbb{N}$. We have that
+    \begin{align*}
+    1 & > 0 \\
+    \implies k + 1 & > k \\
+    \implies \frac{1}{k+1} & < \frac{1}{k}
+    \end{align*}
+    shows that the terms of the series are nonincreasing, specifically, they are decreasing. Since
+    $$
+        \lim_{k \to \infty} a_k = \lim_{k \to \infty} \frac{1}{k} = 0
+    $$
+    we conclude that the alternating series
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{k}
+    $$
+    is convergent.
+\end{proof}
+
+\begin{ejer}
+    Determine whether the series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{k^2}{k^2 + 5}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    We first evaluate the limit
+    $$
+        \lim_{k \to \infty} \frac{k^2}{k^2 + 5} = 1
+    $$
+    which means the alternating series test is inconclusive.
+\end{proof}
+
+\begin{ejer}
+    Determine whether the series converges or diverges.
+    $$
+        \sum_{k=2}^{\infty} \frac{\cos(\pi k)}{\sqrt{k}}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \{2, 3, 4, \ldots \}$. Observe
+    $$
+        \cos(\pi k) = (-1)^{k}
+    $$
+    which means we have two conditions to test via
+    $$
+        a_k = \frac{1}{\sqrt{k}}.
+    $$
+    First, we have
+    \begin{align*}
+        1 & > 0 \\
+        \implies k + 1 & > k \\
+        \implies \sqrt{k+1} & > \sqrt{k} \\
+        \implies \frac{1}{\sqrt{k+1}} & < \frac{1}{\sqrt{k}} \\
+        \implies a_{k+1} & < a_{k}.
+    \end{align*}
+    Secondly, the limit yields
+    $$
+        \lim_{k \to \infty} \frac{1}{\sqrt{k}} = 0.
+    $$
+    Hence, 
+    $$
+        \sum_{k=2}^{\infty} \frac{\cos(\pi k)}{\sqrt{k}}
+    $$
+    is convergent.
+\end{proof}
+
+\begin{defi}[Absolute and Conditional Convergence]
+    Let
+    $$
+        S = \sum_{k=1}^{\infty} a_k
+    $$
+    be a convergent alternating series.
+    \begin{itemize}
+        \item The series $S$ is called \textbf{absolutely convergent} if
+        $$
+            \sum_{k=1}^{\infty} |a_k|
+        $$
+        is convergent.
+        \item The series $S$ is called \textbf{conditionally convergent} if
+        $$
+            \sum_{k=1}^{\infty} |a_k|
+        $$
+        is divergent.
+    \end{itemize}
+\end{defi}
+
+\begin{ejer}
+    Determine whether the series converges absolutely or conditionally.
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{k^2 + 8}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the series converges absolutely or conditionally.
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{k+3}{k^2 + 2k + 1}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the series converges absolutely or conditionally.
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k} \frac{\ln(k)}{k}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the series converges absolutely or conditionally.
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{2^{k}}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the series converges absolutely or conditionally.
+    $$
+        \sum_{k=1}^{\infty} \frac{\sin(k)}{k^3}
+    $$
+\end{ejer}
+
+\begin{teo}[Remainder in Alternating Series]
+    Let
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} a_k
+    $$
+    be a convergent alternating series with terms that are nonincreasing in magnitude. Let
+    $$
+        R_n = S - S_n
+    $$
+    be the remainder in approximating the value of that series by the sum of its first $n$ terms.
+    Then
+    $$
+        |R_n| \leq a_{n+1}.
+    $$
+\end{teo}
+
+\begin{ejer}
+    Given
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{k} = \ln(2).
+    $$
+    How many terms of the series are required to approximate $\ln(2)$ with an error less than $10^{-6}$?
+\end{ejer}
+\end{document}

@@ -1,0 +1,256 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Comparison Tests}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+\begin{document}
+
+\encabezado
+\section*{Comparison Tests}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Define the Direct Comparison Test (DCT) and the Limit Comparison Test (LCT).
+        \item Determine convergence and divergence of infinite series using the DCT and LCT.
+    \end{itemize}
+\end{mdframed}
+
+\begin{teo}[Direct Comparison Test]
+    Let $\sum a_k$ and $\sum b_k$ be two infinite series with $a_k, b_k \geq 0$ for $k \in \mathbb{N}$ and $a_k \leq b_k$. Then,
+    \begin{enumerate}
+        \item If $\sum b_k$ is convergent then so is $\sum a_k$.
+        \item If $\sum a_k$ is divergent then so is $\sum b_k$.
+    \end{enumerate}
+\end{teo}
+
+\begin{ejer}
+    Determine whether the following series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k^2 + 2}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \mathbb{N}$. We have
+    \begin{align*}
+        2 & > 0 \\
+        \implies k^2 + 2 & > k^2 \\
+        \implies \frac{1}{k^2 + 2} & < \frac{1}{k^2}.
+    \end{align*}
+    Thus $\frac{1}{k^2 + 2}$ is bounded from above by $\frac{1}{k^2}$. Since
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k^2}
+    $$
+    converges ($p$-series with $p=2$), we get that
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k^2 + 2}
+    $$ is convergent.
+\end{proof}
+
+\begin{ejer}
+    Determine whether the following series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{3 + 2^{k}}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \mathbb{N}$. We have
+    \begin{align*}
+        3 & > 0 \\
+        \implies 3 + 2^{k} & > 2^{k} \\
+        \implies \frac{1}{3 + 2^{k}} & < \frac{1}{2^{k}}.
+    \end{align*}
+    Thus $\frac{1}{3 + 2^{k}}$ is bounded from above by $\frac{1}{2^{k}}$. Since
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{2^{k}}
+    $$
+    converges (geometric series with $r = \frac{1}{2}$), we get that
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{3 + 2^{k}}
+    $$ is convergent.
+\end{proof}
+
+\begin{ejer}
+    Determine whether the following series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{\sqrt{k} - 4}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \mathbb{N}$. We have
+    \begin{align*}
+        -4 & < 0 \\
+        \implies \sqrt{k} - 4 & < \sqrt{k} \\
+        \implies \frac{1}{\sqrt{k} - 4} & > \frac{1}{\sqrt{k}}.
+    \end{align*}
+    Thus $\frac{1}{\sqrt{k} - 4}$ is bounded from below by $\frac{1}{\sqrt{k}}$. Since
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{\sqrt{k}}
+    $$
+    divergent ($p$-series with $p = \frac{1}{2}$), we get that
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{\sqrt{k} - 4}
+    $$ is divergent.
+\end{proof}
+
+\begin{ejer}
+    $\skull$
+    Determine whether the following series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{\sqrt{k} + 4}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \mathbb{N}$. We have
+    \begin{align*}
+        4 & > 0 \\
+        \implies \sqrt{k} + 4 & > \sqrt{k} \\
+        \implies \frac{1}{\sqrt{k} + 4} & < \frac{1}{\sqrt{k}}.
+    \end{align*}
+    Thus $\frac{1}{\sqrt{k} + 4}$ is bounded from above by $\frac{1}{\sqrt{k}}$. Hence, we are unable to reach a conclusion via the Direct Comparison Test.
+\end{proof}
+
+\begin{teo}[Limit Comparison Test]
+    Let $\sum a_k$ and $\sum b_k$ be two infinite series with $a_k \geq 0$ and $b_k > 0$ for $k \in \mathbb{N}$. Define
+    $$
+        c := \lim_{k \to \infty} \frac{a_k}{b_k}.
+    $$
+    If $c$ is positive ($c > 0$) and finite ($c < \infty$) then either both series converge or both series diverge.
+\end{teo}
+
+\begin{ejer}
+    Determine whether the following series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{2^{k} - 1}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let $a_k = \frac{1}{2^{k} - 1}$ and $b_k = \frac{1}{2^{k}}$ for $k \in \mathbb{N}$. Then,
+    \begin{align*}
+        \lim_{k \to \infty} \frac{a_k}{b_k}
+            & = \lim_{k \to \infty} \frac{\frac{1}{2^{k} - 1}}{\frac{1}{2^{k}}} \\
+            & = \lim_{k \to \infty} \frac{2^{k}}{2^{k} - 1} \\
+            & = \lim_{k \to \infty} \left( \frac{2^{k}}{2^{k} - 1} \right) \left( \frac{2^{-k}}{2^{-k}} \right) \\
+            & = \lim_{k \to \infty} \frac{1}{1 - \frac{1}{2^{k}}} \\
+            & = 1.
+    \end{align*}
+    Since 
+    $$
+    \lim_{k \to \infty} \frac{a_k}{b_k} = 1
+    $$
+    is positive, finite, and
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{2^{k}}
+    $$
+    is convergent (geometric series with $r=\frac{1}{2}$), we conclude that 
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{2^{k} - 1}
+    $$
+    is convergent.
+\end{proof}
+
+\begin{ejer}
+    Determine whether the following series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{7^{k}}{3^{k} + 9k  - 3}
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let
+    $$
+        a_k = \frac{7^{k}}{3^{k} + 9k  - 3}
+    $$
+    and
+    $$
+        b_k = \frac{7^{k}}{3^{k}} 
+    $$
+    for $ k \in \mathbb{N}$. Then,
+    \begin{align*}
+        \lim_{k \to \infty} \frac{a_k}{b_k}
+            & = \lim_{k \to \infty} \frac{\frac{7^{k}}{3^{k} + 9k  - 3}}{\frac{7^{k}}{3^{k}} } \\
+            & = \lim_{k \to \infty} \frac{3^{k}7^{k}}{(3^{k} + 9k -3)7^{k}} \\
+            & = \lim_{k \to \infty} \frac{3^{k}}{(3^{k} + 9k -3)} \left( \frac{3^{-k}}{3^{-k}} \right) \\
+            & = \lim_{k \to \infty} \frac{1}{(1 + \frac{9k}{3^{k}} - \frac{3}{3^{k}})} \\
+            & = 1.
+    \end{align*}
+    Since 
+    $$
+    \lim_{k \to \infty} \frac{a_k}{b_k} = 1
+    $$
+    is positive, finite, and
+    $$
+        \sum_{k=1}^{\infty} \frac{7^{k}}{3^{k}}
+    $$
+    is divergent (geometric series with $r=\frac{7}{3}$), we conclude that 
+    $$
+        \sum_{k=1}^{\infty} \frac{7^{k}}{3^{k} + 9k  - 3}
+    $$
+    is divergent.
+\end{proof}
+
+\begin{ejer}
+    Determine whether the following series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \sin\left( \frac{1}{k} \right)
+    $$
+\end{ejer}
+\begin{proof}[Solution]
+    Let
+    $$
+        a_k = \sin\left( \frac{1}{k} \right)
+    $$
+    and
+    $$
+        b_k = \frac{1}{k}
+    $$
+    for $ k \in \mathbb{N}$. Then,
+    \begin{align*}
+        \lim_{k \to \infty} \frac{a_k}{b_k}
+            & = \lim_{k \to \infty} \frac{\sin\left( \frac{1}{k}\right)}{\frac{1}{k}} \\
+            & = 1.
+    \end{align*}
+    Since 
+    $$
+    \lim_{k \to \infty} \frac{a_k}{b_k} = 1
+    $$
+    is positive, finite, and
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k}
+    $$
+    is divergent (harmonic series), we conclude that 
+    $$
+        \sum_{k=1}^{\infty} \sin\left( \frac{1}{k} \right)
+    $$
+    is divergent.
+\end{proof}
+\end{document}

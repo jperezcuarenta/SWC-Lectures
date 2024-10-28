@@ -19,3 +19,6 @@ MATH-251/Quizzes/*
 MATH-251/Notes/*/*.pdf
 MATH-251/Notes/*/*.sty
 MATH-251/Notes/*/*.cls
+MATH-251/Scripts/Visuals.py
+CourseGrader.py
+PlotGrades.py
