@@ -49,14 +49,26 @@
 \end{mdframed}
 
 One of the simplest tests determines whether an infinite series diverges.
-\begin{teo}
-    If $\sum a_k$ converges, then $\lim_{k \to \infty} a_k = 0$. Equivalently, if $\lim_{k \to \infty} a_k \neq 0$, then the series diverges.
+\begin{teo}[Divergence Test]
+    If
+    $$
+        \sum_{k=1}^{\infty} a_k
+    $$
+    converges, then 
+    $$
+        \lim_{k \to \infty} a_k = 0.
+    $$
+    Equivalently, if
+    $$
+        \lim_{k \to \infty} a_k \neq 0
+    $$
+    then the series diverges.
 \end{teo}
 
 \begin{ejer}
     Determine if the following series is divergent.
     $$
-        \sum_{k=1}^{\infty} \left( \frac{2n^2 + 1}{3n^2 - 1} \right)
+        \sum_{k=1}^{\infty} \left( \frac{2k^2 + 1}{3k^2 - 1} \right)
     $$
 \end{ejer}
 \begin{proof}[Solution]
@@ -66,7 +78,7 @@ One of the simplest tests determines whether an infinite series diverges.
     $$
     Therefore, the infinite series
     $$
-        \sum_{k=1}^{\infty} \left( \frac{2n^2 + 1}{3n^2 - 1} \right)
+        \sum_{k=1}^{\infty} \left( \frac{2k^2 + 1}{3k^2 - 1} \right)
     $$
     is divergent.
 \end{proof}

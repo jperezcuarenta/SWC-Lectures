@@ -1,0 +1,171 @@
+% \documentclass[compacto,10pt]{aleph-notas}
+\documentclass[compacto,10pt,comentarios]{aleph-notas}
+
+% -- Paquetes adicionales
+\usepackage{enumitem}
+\usepackage{aleph-comandos}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[framemethod=tikz]{mdframed}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+\def \ds{\displaystyle}
+\def \dfx{\dfrac{d}{dx}}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt LH}{=}}}
+
+% -- Datos del libro
+\institucion{Southwestern College}
+\asignatura{MATH 251: Calculus II}
+\tema{Ratio and Root Tests}
+\autor{Jesús Pérez Cuarenta}
+% \fecha{Fall 2024}
+
+%% --> Logos de las guias
+\logouno[4.5cm]{../Images/swc_logo}
+\definecolor{colordef}{cmyk}{0.81, 0.62, 0.00, 0.22}
+
+%% -- Solucion para alumnos
+% \AtBeginEnvironment{proof}{\color{white}}
+
+\begin{document}
+
+\encabezado
+\section*{Ratio and Root Tests}
+\begin{mdframed}
+    \center Learning Objectives \\
+    \begin{itemize}
+        \item Define the Ratio and Root Tests.
+        \item Use the Ratio Test to determine whether a series converges.
+        \item Use the Root Test to determine whether a series converges.
+    \end{itemize}
+\end{mdframed}
+
+\begin{defi}[Ratio Test]
+    Let
+    $$
+        S = \sum_{k=1}^{\infty} a_k
+    $$
+    be an infinite series.
+    \begin{itemize}
+        \item If
+            $$
+                \lim_{k \to \infty} \left| \frac{a_{k + 1}}{a_k} \right| < 1
+            $$
+            then the series $S$ is convergent.
+        \item If
+            $$
+                \lim_{k \to \infty} \left| \frac{a_{k+1}}{a_k} \right| > 1
+            $$
+            or
+            $$
+                \lim_{k \to \infty} \left| \frac{a_{k+1}}{a_k} \right| = \infty
+            $$
+            then $S$ is divergent.
+        \item If
+            $$
+                \lim_{k \to \infty} \left| \frac{a_{k+1}}{a_k}\right| = 1
+            $$
+            the Ratio Test is inconclusive. 
+    \end{itemize}
+\end{defi}
+
+\begin{ejer}
+    Determine whether the infinite series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k} \frac{k^2}{3^k}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the infinite series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{k!}{5^k}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the infinite series converges or diverges.
+    $$
+        \sum_{k=0}^{\infty} \frac{(-1)^k}{k^2+1}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the infinite series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{k^2+4}{\mathrm{e}^{k}}
+    $$
+\end{ejer}
+
+\begin{defi}[Root Test]
+    Let 
+    $$
+        S = \sum_{k=1}^{\infty} a_k.
+    $$
+    \begin{itemize}
+        \item If 
+        $$
+            \lim_{n\to\infty}\sqrt[k]{|a_k|} < 1
+        $$ then $S$ is convergent.
+        \item If
+        $$
+            \lim_{k \to \infty} \sqrt[k]{|a_k|} > 1
+        $$ 
+        or 
+        $$
+            \lim_{k \to \infty} \sqrt[k]{|a_k|}=\infty
+        $$
+        then $S$ is divergent.
+        \item
+        If 
+            $$
+                \lim_{k \to \infty} \sqrt[k]{|a_k|}=1
+            $$
+        the Root Test is inconclusive. 
+\end{itemize}
+\end{defi}
+
+% \begin{tcolorbox}[width=16.5cm,colback={orange!10},title={\textbf{Special Limits}},colbacktitle=blue!50!black,coltitle=white]
+% 	\begin{enumerate}[(i)]
+% 		\item $\displaystyle{\lim_{n\to\infty}\sqrt[n]{n}=1}$
+% 		\item $\displaystyle{\lim_{n\to\infty}\sqrt[n]{\ln n}=1}$
+% 		\item $\displaystyle{\lim_{n\to\infty}\sqrt[n]{a}=1}$
+% 	\end{enumerate}
+% \end{tcolorbox}
+
+\begin{ejer}
+    Determine whether the infinite series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \left( \frac{2k + 3}{3 k + 2} \right) ^ {k}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the infinite series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{k ^ {k}}{3 ^ {2k + 1}}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the infinite series converges or diverges.
+    $$
+        \sum_{k=1}^\infty \frac{k ^ {2} 2 ^ {k}}{3 ^ {k + 1}}
+    $$
+\end{ejer}
+
+\begin{ejer}
+    Determine whether the infinite series converges or diverges.
+    $$
+        \sum_{k=1}^{\infty} \frac{(-2)^{k} \ln(k)}{k ^ {10}}
+    $$
+\end{ejer}
+
+\end{document}

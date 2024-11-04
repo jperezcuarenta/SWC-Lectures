@@ -41,7 +41,7 @@
 \begin{mdframed}
     \center Learning Objectives \\
     \begin{itemize}
-        \item Use the Alternating Series Test to determine whether an alternating series converges (absolutely or conditionally) or diverges.
+        \item Use the Alternating Series Test (AST) to determine whether an alternating series converges or diverges.
         \item Use the Alternating Series Remainder Theorem to approximate the sum of an alternating series.
     \end{itemize}
 \end{mdframed}
@@ -57,7 +57,7 @@
         $$
             0 < a_{k+1} \leq a_{k}
         $$
-        for $k$ greater than some $N \in \mathbb{N}$ and,
+        for $k \in \mathbb{N}$ and,
         \item the limit 
         $$
             \lim_{k \to \infty} a_k = 0
@@ -97,7 +97,7 @@
     $$
 \end{ejer}
 \begin{proof}[Solution]
-    We first evaluate the limit
+    We first evaluate the limit and observe
     $$
         \lim_{k \to \infty} \frac{k^2}{k^2 + 5} = 1
     $$
@@ -135,24 +135,24 @@
     $$
         \sum_{k=2}^{\infty} \frac{\cos(\pi k)}{\sqrt{k}}
     $$
-    is convergent.
+    is convergent (by the AST).
 \end{proof}
 
 \begin{defi}[Absolute and Conditional Convergence]
     Let
     $$
-        S = \sum_{k=1}^{\infty} a_k
+        S = \sum_{k=1}^{\infty} (-1)^{k + 1} a_k
     $$
     be a convergent alternating series.
     \begin{itemize}
         \item The series $S$ is called \textbf{absolutely convergent} if
         $$
-            \sum_{k=1}^{\infty} |a_k|
+            \sum_{k=1}^{\infty} |(-1)^{k + 1} a_k| = \sum_{k=1}^{\infty} |a_k|
         $$
         is convergent.
         \item The series $S$ is called \textbf{conditionally convergent} if
         $$
-            \sum_{k=1}^{\infty} |a_k|
+            \sum_{k=1}^{\infty} |(-1)^{k + 1} a_k| = \sum_{k=1}^{\infty} |a_k|
         $$
         is divergent.
     \end{itemize}
@@ -164,6 +164,33 @@
         \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{k^2 + 8}
     $$
 \end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \mathbb{N}$. First we test for absolute convergence. Consider
+    $$
+        \sum_{k=1}^{\infty} a_k
+        = \sum_{k=1}^{\infty} \frac{1}{k^{2} + 8}
+    $$
+    and
+    $$
+        \sum_{k=1}^{\infty} b_k
+        = \sum_{k=1}^{\infty} \frac{1}{k^{2}}.
+    $$
+    We invoke the Limit Comparison Test,
+    \begin{align*}
+        \lim_{k \to \infty} \frac{a_k}{b_k}
+        & = \lim_{k \to \infty} \frac{\frac{1}{k^{2} + 8}}{\frac{1}{k^{2}}} \\
+        & = 1.
+    \end{align*}
+    We get that 
+    $$
+        \sum_{k=1}^{\infty} \frac{1}{k^{2} + 8}
+    $$
+    is convergent by the LCT which implies that the infinite series
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{k^2 + 8}
+    $$
+    is \textbf{absolutely convergent}.
+\end{proof}
 
 \begin{ejer}
     Determine whether the series converges absolutely or conditionally.
@@ -171,6 +198,49 @@
         \sum_{k=1}^{\infty} (-1)^{k+1} \frac{k+3}{k^2 + 2k + 1}
     $$
 \end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \mathbb{N}$. We first test for absolute convergence. Consider
+    $$
+        \sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} \frac{k+3}{k^2 + 2k +1}
+    $$
+    and 
+    $$
+        \sum_{k=1}^{\infty} b_k = \sum_{k=1}^{\infty} \frac{1}{k}.
+    $$
+    Now,
+    \begin{align*}
+        \lim_{k \to \infty} \frac{a_k}{b_k}
+        & = \lim_{k \to \infty} \frac{\frac{k+3}{k^2 + 2k +1}}{\frac{1}{k}} \\
+        & = \lim_{k \to \infty} \frac{k(k+3)}{k^{2} + 2k + 1} \\
+        & = \lim_{k \to \infty} \frac{k^2 + 3k}{k^{2} + 2k + 1} \\ 
+        & = 1.
+    \end{align*}
+    By the Limit Comparison Test, we get that
+    $$
+        \sum_{k=1}^{\infty} \frac{k+3}{k^2 + 2k +1}
+    $$
+    is divergent. Now we test for conditional convergence. Let 
+    $$
+        f(x) = \frac{x+3}{x^2+2x+1}
+    $$
+    for $x \in \mathbb{R}$. Then,
+    $$
+        f'(x) = -\frac{x+5}{(x+1)^3} \implies f'(1) < 0.
+    $$
+    Thus $\{a_k\}$ is a decreasing sequence which implies
+    $$
+        0 < a_{k+1} < a_{k}.
+    $$
+    Next, we see that
+    $$
+        \lim_{k \to \infty} \frac{k+3}{k^2 + 2k + 1} = 0.
+    $$
+    Therefore,
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{k+3}{k^2 + 2k + 1}
+    $$
+    \textbf{converges conditionally} by the AST.
+\end{proof}
 
 \begin{ejer}
     Determine whether the series converges absolutely or conditionally.
@@ -178,6 +248,46 @@
         \sum_{k=1}^{\infty} (-1)^{k} \frac{\ln(k)}{k}
     $$
 \end{ejer}
+\begin{proof}[Solution]
+    Let $k \in \mathbb{N}$. We first test for absolute convergence. Let
+    $$
+        \sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} \frac{\ln(k)}{k}.
+    $$
+    Now, note that $f(x) = \ln(x)$ is a strictly increasing function on the interval $(0, \infty)$ (as made evident by $f'(x)$). Then, for $k \geq 3$,
+    \begin{align*}
+        \ln(k) & > 1 \\
+        \implies \frac{\ln(k)}{k} & > \frac{1}{k}.
+    \end{align*}
+    Since
+    $$
+        \sum_{k=3}^{\infty} \frac{1}{k}
+    $$
+    is divergent (harmonic series), by the Direct Comparison Test, we get that
+    $$
+        \sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} \frac{\ln(k)}{k}
+    $$
+    is divergent. Now we test for conditional convergence. For $x \in \mathbb{R}$, we have
+    \begin{align*}
+        g(x) & = \frac{\ln(x)}{x} \\
+        \implies g'(x) & = \frac{1-\ln(x)}{x^2} \\
+        \implies g'(e^2) & = -\frac{1}{e^{4}} < 0.
+    \end{align*}
+    Thus, for $k \geq 3$, $a_k$ is decreasing Namely,
+    $$
+        0 < a_{k+1} \leq a_{k}.
+    $$
+    In addition,
+    $$
+        \lim_{k \to \infty} a_k
+        = \lim_{k \to \infty} \frac{\ln(k)}{k} 
+        = 0.
+    $$
+    Therefore, the infinite series
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k} \frac{\ln(k)}{k}
+    $$
+    \textbf{converges conditionally} by the AST.
+\end{proof}
 
 \begin{ejer}
     Determine whether the series converges absolutely or conditionally.
@@ -185,13 +295,17 @@
         \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{2^{k}}
     $$
 \end{ejer}
-
-\begin{ejer}
-    Determine whether the series converges absolutely or conditionally.
+\begin{proof}
+    Let $k \in \mathbb{N}$ and notice that
     $$
-        \sum_{k=1}^{\infty} \frac{\sin(k)}{k^3}
+        \sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} \frac{1}{2^{k}}
     $$
-\end{ejer}
+    is a convergent series (geometric series). Therefore, the infinite series
+    $$
+        \sum_{k=1}^{\infty} (-1)^{k+1} \frac{1}{2^{k}}
+    $$
+    \textbf{converges absolutely}.
+\end{proof}
 
 \begin{teo}[Remainder in Alternating Series]
     Let
@@ -216,4 +330,34 @@
     $$
     How many terms of the series are required to approximate $\ln(2)$ with an error less than $10^{-6}$?
 \end{ejer}
+\begin{proof}[Solution]
+    Let $k, n \in \mathbb{N}, n > k$, and
+    $$
+        S = S_{n} + R_{n}
+    $$
+    where
+    $$
+        S_{n} = \sum_{k=1}^{n} (-1)^{k+1} \frac{1}{k}
+    $$
+    and
+    $$
+        R_{n} = \sum_{k=n+1}^{\infty} (-1)^{k+1} \frac{1}{k}.
+    $$
+    We have
+    \begin{align*}
+        |R_{n}| & \leq \left|(-1)^{(n+2)} \frac{1}{n + 1} \right| \\
+        \implies |R_{n}| & \leq \frac{1}{n+1}.
+    \end{align*}
+    We now seek a value of $n$ satisfying the following inequalities,
+    \begin{align*}
+        \frac{1}{n+1} & \leq 10^{-6} \\
+        \implies 10^{6} & \leq n + 1 \\
+        \implies 10^{6} - 1 & \leq n.
+    \end{align*}
+    With numerical methods, one can show
+    $$
+        \left| \ln(2) - \sum_{k=1}^{10^{6} - 1} (-1)^{k+1} \frac{1}{k} \right| \approx 5 \cdot 10^{-7} < 10^{-6}
+    $$
+    confirming our choice of $n \geq 999999$.
+\end{proof}
 \end{document}
